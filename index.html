@@ -129,6 +129,20 @@
       font-size: 0.9rem;
       color: #8b949e;
     }
+    .curso-banner img.curso-img {
+      width: 60%;          /* ocupa 60% do card */
+      max-width: 300px;    /* limite máximo */
+      display: block;
+      margin: 0 auto 1rem auto; /* centraliza */
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+
+
+    .curso-banner img.curso-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
 
     /* Responsividade */
     @media(max-width: 900px){
@@ -136,6 +150,7 @@
       nav ul { flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
       main { padding: 8rem 1rem 2rem 1rem; }
     }
+
   </style>
 </head>
 <body>
@@ -154,6 +169,7 @@
 
     <!-- Curso 1 -->
     <div id="curso1" class="curso-banner">
+      <img src="imagens/curso-playwright-web.png" alt="Capa do curso Automação Web" class="curso-img">
       <h2>Automação de Testes com Playwright, Python e Pytest</h2>
       <p>Domine testes automatizados para web com Playwright, boas práticas de desenvolvimento, POM, fixtures e integração contínua.</p>
       <div class="conteudo">
@@ -178,12 +194,13 @@
 
     <!-- Curso 2 -->
     <div id="curso2" class="curso-banner">
+      <img src="imagens/curso-playwright-api.png" alt="Capa do curso Automação API" class="curso-img">
       <h2>Automação de Testes de API com Playwright e Python</h2>
-      <p>Crie testes automáticos para APIs REST usando Playwright e Python, com validação de JSON, testes orientados a dados e execução paralela.</p>
+      <p>Crie testes automáticos para APIs usando Playwright e Python, com validação de JSON, testes orientados a dados e execução paralela.</p>
       <div class="conteudo">
         <h3>O que você vai aprender:</h3>
         <ul>
-          <li>Fundamentos de APIs REST e métodos HTTP</li>
+          <li>Fundamentos de APIs e métodos HTTP</li>
           <li>Primeiros testes de API com Playwright em Python</li>
           <li>Gerenciamento de autenticação e tokens</li>
           <li>CRUD completo e validação de respostas</li>
