@@ -3,31 +3,221 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cursos de Playwright com Python</title>
-  <link rel="stylesheet" href="style.css">
+  <title>CodeUp - Cursos de Automação, Testes e Desenvolvimento</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset e base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0d1117; color: #f0f6fc; line-height: 1.6; scroll-behavior: smooth; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Navbar top */
+    nav {
+      width: 100%;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+    nav h1 { font-size: 1.8rem; color: #6c63ff; }
+    nav ul { display: flex; gap: 1rem; list-style: none; }
+    nav ul li a {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background 0.3s;
+      font-weight: 500;
+      color: #c9d1d9;
+    }
+    nav ul li a:hover { background: #6c63ff; color: #fff; }
+
+    main { padding: 6rem 2rem 2rem 2rem; max-width: 1200px; margin: 0 auto; }
+
+    /* Banner curso */
+    .curso-banner {
+      background: linear-gradient(135deg, #2c2f45, #3b3f5c);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .curso-banner:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
+    .curso-banner h2 { font-size: 2rem; color: #6c63ff; margin-bottom: 0.5rem; }
+    .curso-banner p { font-size: 1rem; color: #c9d1d9; margin-bottom: 1.5rem; }
+
+    .conteudo ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+    .conteudo li { margin-bottom: 0.5rem; }
+
+    .beneficios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .beneficio {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .beneficio:hover { background: #1f2233; transform: translateY(-3px); }
+    .beneficio h4 { color: #6c63ff; margin-bottom: 0.5rem; }
+    .beneficio p { font-size: 0.95rem; color: #c9d1d9; }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #6c63ff;
+      color: white;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: background 0.3s, transform 0.2s;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .btn:hover { background: #584fd1; transform: translateY(-2px); }
+
+    /* Seção "Por que escolher CodeUp" */
+    .por-que {
+      background: #1b1f2a;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .por-que h2 { color: #6c63ff; margin-bottom: 1rem; font-size: 2rem; }
+    .por-que ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; list-style: none; }
+    .por-que li { background: #161b22; padding: 1rem; border-radius: 12px; text-align: center; transition: transform 0.2s, background 0.2s; }
+    .por-que li:hover { background: #1f2233; transform: translateY(-3px); }
+
+    .por-que li h4 { color: #6c63ff; margin-bottom: 0.5rem; }
+    .por-que li p { color: #c9d1d9; font-size: 0.95rem; }
+
+    /* Depoimentos */
+    .depoimentos {
+      margin: 3rem 0;
+    }
+    .depoimentos h2 { color: #6c63ff; margin-bottom: 1.5rem; font-size: 2rem; text-align: center; }
+    .depoimento {
+      background: #161b22;
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .depoimento:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+    .depoimento p { font-style: italic; margin-bottom: 0.5rem; }
+    .depoimento span { font-weight: 600; color: #6c63ff; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #161b22;
+      border-top: 1px solid #30363d;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #8b949e;
+    }
+
+    /* Responsividade */
+    @media(max-width: 900px){
+      nav { flex-direction: column; align-items: flex-start; }
+      nav ul { flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+      main { padding: 8rem 1rem 2rem 1rem; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Automação de Testes com Playwright</h1>
-    <p>Aprenda do zero a criar testes modernos e eficientes em Python</p>
-  </header>
 
-  <section class="cursos">
-    <div class="curso-card">
-      <h2>Curso 1: Playwright Essencial</h2>
-      <p>Aprenda os fundamentos do Playwright em Python, criando testes automatizados para aplicações web.</p>
-      <a href="LINK_UDMY_CURSO1" target="_blank" class="btn">Quero me inscrever</a>
+  <!-- Navbar Top -->
+  <nav>
+    <h1>CodeUp</h1>
+    <ul>
+      <li><a href="#curso1">Automação Web</a></li>
+      <li><a href="#curso2">Automação API</a></li>
+      <li><a href="#por-que">Por que CodeUp?</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- Curso 1 -->
+    <div id="curso1" class="curso-banner">
+      <h2>Automação de Testes com Playwright, Python e Pytest</h2>
+      <p>Domine testes automatizados para web com Playwright, boas práticas de desenvolvimento, POM, fixtures e integração contínua.</p>
+      <div class="conteudo">
+        <h3>O que você vai aprender:</h3>
+        <ul>
+          <li>Instalação de Python, ambiente virtual e Playwright</li>
+          <li>Criação de testes automatizados para web</li>
+          <li>Uso de Page Object Model (POM) para organizar testes</li>
+          <li>Fixtures no Pytest e execução avançada</li>
+          <li>Boas práticas, uploads, downloads e assertivas claras</li>
+          <li>Relatórios HTML e integração contínua com Jenkins</li>
+          <li>Autenticação usando storage state</li>
+        </ul>
+      </div>
+      <div class="beneficios">
+        <div class="beneficio"><h4>Prático</h4><p>Exemplos reais e exercícios aplicáveis imediatamente.</p></div>
+        <div class="beneficio"><h4>Produtivo</h4><p>Acelere seus testes e automatize tarefas repetitivas.</p></div>
+        <div class="beneficio"><h4>Profissional</h4><p>Técnicas utilizadas em empresas de ponta.</p></div>
+      </div>
+      <a href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?couponCode=54AE656BE7679F634C7B" target="_blank" class="btn">Comprar Agora</a>
     </div>
 
-    <div class="curso-card">
-      <h2>Curso 2: Testes de API com Playwright</h2>
-      <p>Domine testes de APIs modernas usando Playwright, com exemplos práticos e integração em projetos reais.</p>
-      <a href="LINK_UDMY_CURSO2" target="_blank" class="btn">Quero me inscrever</a>
+    <!-- Curso 2 -->
+    <div id="curso2" class="curso-banner">
+      <h2>Automação de Testes de API com Playwright e Python</h2>
+      <p>Crie testes automáticos para APIs REST usando Playwright e Python, com validação de JSON, testes orientados a dados e execução paralela.</p>
+      <div class="conteudo">
+        <h3>O que você vai aprender:</h3>
+        <ul>
+          <li>Fundamentos de APIs REST e métodos HTTP</li>
+          <li>Primeiros testes de API com Playwright em Python</li>
+          <li>Gerenciamento de autenticação e tokens</li>
+          <li>CRUD completo e validação de respostas</li>
+          <li>Estrutura de projeto organizada e reutilizável (OOP)</li>
+          <li>Testes orientados a dados (DDT) com pytest parametrize</li>
+          <li>Validação de JSON Schema e relatórios profissionais</li>
+          <li>Execução paralela para performance máxima</li>
+        </ul>
+      </div>
+      <div class="beneficios">
+        <div class="beneficio"><h4>Prático</h4><p>Exemplos de APIs reais e exercícios completos.</p></div>
+        <div class="beneficio"><h4>Profissional</h4><p>Suítes de testes usadas em empresas de verdade.</p></div>
+        <div class="beneficio"><h4>Eficiente</h4><p>Execução paralela e relatórios claros.</p></div>
+      </div>
+      <a href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?couponCode=271E00E7A592AFAD477E" target="_blank" class="btn">Comprar Agora</a>
     </div>
-  </section>
+
+    <!-- Por que escolher CodeUp -->
+    <section id="por-que" class="por-que">
+      <h2>Por que escolher CodeUp?</h2>
+      <ul>
+        <li><h4>Expertise</h4><p>Cursos criados por profissionais experientes em automação e desenvolvimento.</p></li>
+        <li><h4>Prático</h4><p>Aprenda com exercícios reais aplicáveis no mercado de trabalho.</p></li>
+        <li><h4>Atualizado</h4><p>Conteúdo moderno e sempre alinhado às melhores práticas da indústria.</p></li>
+        <li><h4>Flexível</h4><p>Estude no seu ritmo, de qualquer lugar, com materiais organizados.</p></li>
+      </ul>
+    </section>
+
+
+  </main>
 
   <footer>
-    <p>© 2025 - Jeferson Caye | Criado com ❤️ e Playwright</p>
+    <p>© 2025 - CodeUp | Criado com ❤️ por Jeferson Caye</p>
   </footer>
+
 </body>
 </html>
