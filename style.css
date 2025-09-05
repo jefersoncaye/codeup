@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0d1117;
+  color: #fff;
+  text-align: center;
+}
+
+header {
+  padding: 2rem;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.cursos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.curso-card {
+  background: #161b22;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  transition: transform 0.2s;
+}
+
+.curso-card:hover {
+  transform: translateY(-5px);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: #238636;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #2ea043;
+}
+
+footer {
+  padding: 1rem;
+  background: #161b22;
+  margin-top: 2rem;
+  border-top: 1px solid #30363d;
+}
