@@ -4,10 +4,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CodeUp – Cursos de Automação, Testes e Desenvolvimento</title>
+
+  <!-- SEO e Open Graph -->
+  <meta name="description" content="Cursos de automação e testes com Playwright, Python, API, Pytest e muito mais. Aprenda com quem vive automação no mercado.">
+  <meta property="og:title" content="CodeUp – Cursos de Automação e Testes">
+  <meta property="og:description" content="Aprenda Playwright, Python, API, Pytest e outras ferramentas de automação com projetos práticos.">
+  <meta property="og:image" content="https://seusite.com/imagens/curso-playwright-web.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CodeUp – Cursos de Automação e Testes">
+  <meta name="twitter:description" content="Cursos práticos de automação de testes com Playwright, API e Python.">
+  <meta name="twitter:image" content="https://seusite.com/imagens/curso-playwright-api.png">
+
   <style>
     :root {
       --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
       --brand:#6c63ff; --accent:#89b4fa; --line:#1a2342;
+    }
+    [data-theme="light"] {
+      --bg:#f9fafc; --panel:#fff; --ink:#1a1a1a; --muted:#555;
+      --brand:#4c4aff; --accent:#0066cc; --line:#ddd;
     }
     * { box-sizing:border-box; }
     body {
@@ -18,10 +34,28 @@
         radial-gradient(1200px 800px at 80% -10%, #1b2450 0%, transparent 50%),
         radial-gradient(900px 600px at -10% 20%, #0f2a3f 0%, transparent 60%),
         var(--bg);
+      line-height:1.6;
+      transition:background .3s,color .3s;
     }
     a { color:var(--accent); text-decoration:none; }
     a:hover { opacity:.9; }
     .wrap { max-width:1100px; margin:auto; padding:32px; }
+
+    /* Navbar */
+    .navbar {
+      position:fixed; top:0; left:0; right:0;
+      display:flex; justify-content:space-between; align-items:center;
+      background:var(--panel);
+      border-bottom:1px solid var(--line);
+      padding:12px 24px;
+      z-index:1000;
+    }
+    .navbar a { margin:0 12px; font-weight:500; }
+    .theme-toggle {
+      background:none; border:0; cursor:pointer;
+      font-size:18px; color:var(--ink);
+    }
+    body { padding-top:70px; } /* compensar navbar */
 
     /* Hero */
     .hero {
@@ -31,19 +65,10 @@
       background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       border-radius:16px;
       margin-bottom:40px;
+      animation:fadeIn 1s ease;
     }
     .hero h1 { font-size:40px; margin:0 0 10px; }
     .hero p { color:var(--muted); font-size:18px; margin:0; }
-    .badge {
-      display:inline-block;
-      padding:6px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      font-size:13px;
-      color:var(--muted);
-      margin-bottom:14px;
-      letter-spacing:.3px;
-    }
 
     /* Grid de cursos */
     .grid {
@@ -59,6 +84,7 @@
       display:flex;
       flex-direction:column;
       transition:transform .2s, box-shadow .2s;
+      animation:fadeInUp .8s ease;
     }
     .curso-card:hover {
       transform:translateY(-3px);
@@ -71,7 +97,9 @@
       border-radius:12px;
       display:block;
       box-shadow:0 6px 16px rgba(0,0,0,.35);
+      transition:transform .25s ease;
     }
+    .curso-card:hover img { transform:scale(1.03); }
     .curso-card h2 {
       font-size:22px;
       margin:0 0 10px;
@@ -91,18 +119,19 @@
       color:var(--ink);
       font-weight:600;
       text-align:center;
-      transition:transform .2s, background .2s;
+      transition:transform .2s, background .2s, box-shadow .2s;
     }
     .btn.primary {
       background:linear-gradient(135deg, var(--brand), #4c4aff);
       color:#0a1524;
       border:0;
+      box-shadow:0 4px 12px rgba(108,99,255,.4);
     }
     .btn:hover { transform:translateY(-1px); }
 
-    /* Sessão "Por que CodeUp" */
+    /* Sessão "Por que escolher" */
     .section { margin-top:60px; }
-    .section h2 { font-size:28px; margin:0 0 12px; }
+    .section h2 { font-size:28px; margin:0 0 12px; text-align:center; }
     .section ul {
       display:grid;
       gap:16px;
@@ -119,9 +148,25 @@
       padding:18px;
       background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       text-align:center;
+      transition:transform .2s;
     }
+    .section li:hover { transform:translateY(-2px); }
     .section li h4 { color:var(--brand); margin:0 0 6px; }
     .section li p { color:var(--muted); margin:0; font-size:14px; }
+
+    /* CTA fixo */
+    .cta-fixo {
+      position:fixed;
+      right:20px; bottom:20px;
+      background:linear-gradient(135deg, var(--brand), #4c4aff);
+      color:#fff; padding:14px 18px;
+      border-radius:12px;
+      font-weight:600;
+      box-shadow:0 6px 16px rgba(0,0,0,.35);
+      transition:transform .2s;
+      z-index:999;
+    }
+    .cta-fixo:hover { transform:scale(1.05); }
 
     /* Footer */
     .footer {
@@ -130,9 +175,23 @@
       text-align:center;
       font-size:14px;
     }
+
+    /* Animações */
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
   </style>
 </head>
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div><strong>CodeUp</strong></div>
+    <div>
+      <a href="#cursos">Cursos</a>
+      <a href="#sobre">Sobre</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </nav>
+
   <div class="wrap">
     <!-- Hero -->
     <section class="hero">
@@ -141,14 +200,13 @@
     </section>
 
     <!-- Cursos -->
-    <div class="grid">
+    <div id="cursos" class="grid">
       <div class="curso-card">
         <img src="imagens/curso-playwright-web.png" alt="Curso Automação Web">
         <h2>Automação de Testes com Playwright, Python e Pytest</h2>
         <p>Domine testes automatizados para web com Playwright, boas práticas de desenvolvimento, POM, fixtures e integração contínua.</p>
         <a href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?couponCode=54AE656BE7679F634C7B" target="_blank" class="btn primary">Acessar Curso</a>
       </div>
-
       <div class="curso-card">
         <img src="imagens/curso-playwright-api.png" alt="Curso Automação API">
         <h2>Automação de Testes de API com Playwright e Python</h2>
@@ -158,7 +216,7 @@
     </div>
 
     <!-- Por que escolher -->
-    <section class="section">
+    <section class="section" id="sobre">
       <h2>Por que escolher CodeUp?</h2>
       <ul>
         <li><h4>Expertise</h4><p>Instrutor com experiência prática em automação e desenvolvimento.</p></li>
@@ -168,6 +226,24 @@
       </ul>
     </section>
 
+    <!-- Próximos cursos -->
+    <section class="section">
+      <h2>Próximos Cursos</h2>
+      <div class="grid">
+        <div class="curso-card"><h2>Automação de Testes com Cypress e Typescript</h2><p>Em breve...</p></div>
+        <div class="curso-card"><h2>Automação de testes com TestComplete</h2><p>Em breve...</p></div>
+        <div class="curso-card"><h2>SQL para Testes</h2><p>Em breve...</p></div>
+      </div>
+    </section>
+
   </div>
+
+  <!-- Script Dark/Light Mode -->
+  <script>
+    function toggleTheme() {
+      document.body.dataset.theme =
+        document.body.dataset.theme === "light" ? "dark" : "light";
+    }
+  </script>
 </body>
 </html>
