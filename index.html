@@ -3,259 +3,397 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CodeUp – Cursos de Automação, Testes e Desenvolvimento</title>
+  <title>CodeUp – Cursos Profissionais de Automação e Testes</title>
 
-  <!-- SEO e Open Graph -->
-  <meta name="description" content="Cursos de automação e testes com Playwright, Python, API, Pytest e muito mais. Aprenda com quem vive automação no mercado.">
-  <meta property="og:title" content="CodeUp – Cursos de Automação e Testes">
-  <meta property="og:description" content="Aprenda Playwright, Python, API, Pytest e outras ferramentas de automação com projetos práticos.">
-  <meta property="og:image" content="https://seusite.com/imagens/curso-playwright-web.png">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CodeUp – Cursos de Automação e Testes">
-  <meta name="twitter:description" content="Cursos práticos de automação de testes com Playwright, API e Python.">
-  <meta name="twitter:image" content="https://seusite.com/imagens/curso-playwright-api.png">
+  <meta name="description" content="Cursos profissionais de automação de testes com Playwright, Python, API, Pytest, TestComplete e k6. Entre no mercado com projetos reais e boas práticas.">
 
   <style>
     :root {
       --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
       --brand:#6c63ff; --accent:#89b4fa; --line:#1a2342;
     }
-    [data-theme="light"] {
-      --bg:#f9fafc; --panel:#fff; --ink:#1a1a1a; --muted:#555;
-      --brand:#4c4aff; --accent:#0066cc; --line:#ddd;
-    }
-    * { box-sizing:border-box; }
     body {
       margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      font-family:Inter,system-ui,Arial;
       color:var(--ink);
-      background:
-        radial-gradient(1200px 800px at 80% -10%, #1b2450 0%, transparent 50%),
-        radial-gradient(900px 600px at -10% 20%, #0f2a3f 0%, transparent 60%),
-        var(--bg);
+      background:var(--bg);
       line-height:1.6;
-      transition:background .3s,color .3s;
+      padding-top:70px;
     }
-    a { color:var(--accent); text-decoration:none; }
-    a:hover { opacity:.9; }
-    .wrap { max-width:1100px; margin:auto; padding:32px; }
 
     /* Navbar */
     .navbar {
-      position:fixed; top:0; left:0; right:0;
-      display:flex; justify-content:space-between; align-items:center;
-      background:var(--panel);
-      border-bottom:1px solid var(--line);
-      padding:12px 24px;
-      z-index:1000;
-    }
-    .navbar a { margin:0 12px; font-weight:500; }
-    .theme-toggle {
-      background:none; border:0; cursor:pointer;
-      font-size:18px; color:var(--ink);
-    }
-    body { padding-top:70px; } /* compensar navbar */
+  position:fixed;
+  top:0; left:0; right:0;
+  height:70px;
 
-    /* Hero */
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+
+  padding:0 32px;
+  z-index:1000;
+}
+
+.navbar strong {
+  font-size:22px;
+  color:var(--ink);
+  font-weight:700;
+  letter-spacing:0.5px;
+}
+
+/* Container dos links */
+.navbar div {
+  display:flex;
+  gap:28px;
+}
+
+/* Links */
+.navbar a {
+  color:var(--muted);
+  text-decoration:none;
+  font-size:16px;
+  font-weight:500;
+  padding:6px 4px;
+  transition:.25s ease;
+}
+
+/* Hover mais elegante */
+.navbar a:hover {
+  color:var(--ink);
+  text-shadow:0 0 6px rgba(255,255,255,0.25);
+}
+
+/* Versão mobile */
+@media(max-width:600px) {
+  .navbar strong {
+    font-size:20px;
+  }
+  .navbar div {
+    gap:18px;
+  }
+  .navbar a {
+    font-size:15px;
+  }
+}
+
+    /* HERO */
     .hero {
       text-align:center;
-      padding:40px 20px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      border-radius:16px;
-      margin-bottom:40px;
-      animation:fadeIn 1s ease;
+      border-radius:20px;
+      padding:60px 25px;
+      max-width:900px;
+      margin:0 auto 50px;
     }
-    .hero h1 { font-size:40px; margin:0 0 10px; }
-    .hero p { color:var(--muted); font-size:18px; margin:0; }
+    .hero h1 { font-size:42px; margin:0 0 15px; }
+    .hero p { color:var(--muted); font-size:20px; margin-bottom:27px; }
 
-    /* Grid de cursos */
+    .btn-hero {
+      background:linear-gradient(135deg,var(--brand),#4c4aff);
+      padding:16px 30px;
+      border-radius:12px;
+      color:#0d1220;
+      font-size:18px;
+      font-weight:bold;
+      display:inline-block;
+      box-shadow:0 6px 14px rgba(108,99,255,.4);
+    }
+
+    /* Grid */
+    .wrap { max-width:1150px; margin:auto; padding:32px; }
+
+    /* ----------- AJUSTE: 2 cursos por linha ----------- */
     .grid {
       display:grid;
       gap:24px;
-      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns:repeat(2, 1fr);
     }
+    @media(max-width:750px) {
+      .grid { grid-template-columns:1fr; }
+    }
+    /* -------------------------------------------------- */
+
     .curso-card {
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       border:1px solid var(--line);
       border-radius:16px;
-      padding:20px;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+      padding:22px;
       display:flex;
       flex-direction:column;
-      transition:transform .2s, box-shadow .2s;
-      animation:fadeInUp .8s ease;
-    }
-    .curso-card:hover {
-      transform:translateY(-3px);
-      box-shadow:0 10px 20px rgba(0,0,0,.4);
     }
     .curso-card img {
-      width:100%;
-      max-width:260px;
-      margin:0 auto 18px;
+      width:100%; border-radius:12px; margin-bottom:15px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.35);
+    }
+    .curso-card h2 { color:var(--brand); font-size:21px; margin:0 0 10px; }
+    .curso-card p { flex:1; color:var(--muted); }
+
+    .btn {
+      margin-top:18px;
+      padding:12px;
       border-radius:12px;
-      display:block;
-      box-shadow:0 6px 16px rgba(0,0,0,.35);
-      transition:transform .25s ease;
+      text-align:center;
+      background:linear-gradient(135deg,var(--brand),#4c4aff);
+      color:#0d1220;
+      font-weight:600;
+      font-size:16px;
     }
-    .curso-card:hover img { transform:scale(1.03); }
-    .curso-card h2 {
-      font-size:22px;
-      margin:0 0 10px;
-      color:var(--brand);
+
+    /* Títulos de seções */
+    .depo-section h2,
+    .section h2 {
+      text-align:center; margin:60px 0 25px; font-size:30px;
     }
-    .curso-card p {
-      flex:1;
+
+    /* ----------- NOVO: CARROSSEL DE DEPOIMENTOS ----------- */
+
+    .depo-carousel {
+      position: relative;
+      overflow: hidden;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .depo-wrapper {
+      display: flex;
+      transition: transform .6s ease;
+    }
+
+    .depo-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 22px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,0.03);
       color:var(--muted);
       font-size:15px;
-      margin:0 0 16px;
     }
-    .btn {
-      padding:12px 16px;
-      border-radius:10px;
+    .depo-slide strong { color:var(--accent); }
+
+    .depo-dots {
+      text-align:center;
+      margin-top:15px;
+    }
+    .depo-dots span {
+      display:inline-block;
+      width:10px; height:10px;
+      background:var(--muted);
+      margin:4px;
+      border-radius:50%;
+      cursor:pointer;
+      opacity:.6;
+    }
+    .depo-dots .active {
+      background:var(--brand);
+      opacity:1;
+    }
+
+    /* ------------------------------------------------------ */
+
+    /* Sobre */
+    .sobre {
+      max-width:900px;
+      margin:60px auto;
+      text-align:center;
       border:1px solid var(--line);
-      background:#14203b;
-      color:var(--ink);
-      font-weight:600;
-      text-align:center;
-      transition:transform .2s, background .2s, box-shadow .2s;
+      border-radius:20px;
+      padding:40px;
+      background:rgba(255,255,255,0.02);
     }
-    .btn.primary {
-      background:linear-gradient(135deg, var(--brand), #4c4aff);
-      color:#0a1524;
-      border:0;
-      box-shadow:0 4px 12px rgba(108,99,255,.4);
-    }
-    .btn:hover { transform:translateY(-1px); }
+    .sobre p { color:var(--muted); font-size:17px; }
 
-    /* Sessão "Por que escolher" */
-    .section { margin-top:60px; }
-    .section h2 { font-size:28px; margin:0 0 12px; text-align:center; }
-    .section ul {
-      display:grid;
-      gap:16px;
-      list-style:none;
-      padding:0;
-      margin:20px 0 0;
-    }
-    @media(min-width:840px) {
-      .section ul { grid-template-columns:repeat(4,1fr); }
-    }
-    .section li {
+    /* CTA Final */
+    .cta-final {
+      text-align:center; padding:60px 20px;
+      background:rgba(255,255,255,0.02);
+      border-radius:20px;
+      margin-top:60px;
       border:1px solid var(--line);
-      border-radius:14px;
-      padding:18px;
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      text-align:center;
-      transition:transform .2s;
     }
-    .section li:hover { transform:translateY(-2px); }
-    .section li h4 { color:var(--brand); margin:0 0 6px; }
-    .section li p { color:var(--muted); margin:0; font-size:14px; }
+    .cta-final h2 { font-size:32px; margin-bottom:15px; }
+    .cta-final p { font-size:18px; color:var(--muted); margin-bottom:30px; }
 
-    /* CTA fixo */
-    .cta-fixo {
-      position:fixed;
-      right:20px; bottom:20px;
-      background:linear-gradient(135deg, var(--brand), #4c4aff);
-      color:#fff; padding:14px 18px;
-      border-radius:12px;
-      font-weight:600;
-      box-shadow:0 6px 16px rgba(0,0,0,.35);
-      transition:transform .2s;
-      z-index:999;
-    }
-    .cta-fixo:hover { transform:scale(1.05); }
+      .particles {
+  position: fixed;
+  inset: 0;
+  z-index:-1;
+  pointer-events:none;
+}
 
-    /* Footer */
-    .footer {
-      margin:60px 0 8px;
-      color:var(--muted);
-      text-align:center;
-      font-size:14px;
-    }
+.particle {
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:#ffffff22;
+  border-radius:50%;
+  animation: rise linear infinite;
+}
 
-    /* Animações */
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes rise {
+  from { transform: translateY(0); opacity:1; }
+  to { transform: translateY(-120vh); opacity:0; }
+}
+
+
   </style>
 </head>
+
 <body>
-  <!-- Navbar -->
+
+  <!-- NAVBAR -->
   <nav class="navbar">
-    <div><strong>CodeUp</strong></div>
+    <strong>CodeUp</strong>
     <div>
       <a href="#cursos">Cursos</a>
       <a href="#sobre">Sobre</a>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </nav>
 
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Domine Automação de Testes com Projetos Reais</h1>
+    <p>Aprenda com quem vive automação no dia a dia.</p>
+  </section>
+
   <div class="wrap">
-    <!-- Hero -->
-    <section class="hero">
-      <h1>CodeUp – Cursos de Automação e Desenvolvimento</h1>
-      <p>Aprenda com quem vive automação e testes no dia a dia do mercado.</p>
-    </section>
 
     <!-- Cursos -->
-    <div id="cursos" class="grid">
+    <h2 style="text-align:center; margin-bottom:20px" id="cursos">Cursos Disponíveis</h2>
+
+    <div class="grid">
+
       <div class="curso-card">
-        <img src="imagens/curso-playwright-web.png" alt="Curso Automação Web">
-        <h2>Automação de Testes com Playwright, Python e Pytest</h2>
-        <p>Domine testes automatizados para web com Playwright, boas práticas de desenvolvimento, POM, fixtures e integração contínua.</p>
-        <a href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12" target="_blank" class="btn primary">Acessar Curso</a>
+        <img src="imagens/curso-playwright-web.png">
+        <h2>Automação Web com Playwright, Python e Pytest</h2>
+        <p>Aprenda do zero até o avançado com POM, fixtures, boas práticas, CI/CD e muitos exercícios práticos.</p>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12">Acessar Curso</a>
       </div>
+
       <div class="curso-card">
-        <img src="imagens/curso-playwright-api.png" alt="Curso Automação API">
-        <h2>Automação de Testes de API com Playwright e Python</h2>
-        <p>Crie testes automáticos para APIs usando Playwright e Python, com validação de JSON, testes orientados a dados e execução paralela.</p>
-        <a href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185" target="_blank" class="btn primary">Acessar Curso</a>
+        <img src="imagens/curso-playwright-api.png">
+        <h2>Automação de Testes de API com Playwright</h2>
+        <p>Domine testes de API com Python, validação avançada de JSON, execução paralela e testes de carga.</p>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185">Acessar Curso</a>
       </div>
-        <div class="curso-card">
-        <img src="imagens/curso-testcomplete.png" alt="Curso Automação TestComplete">
-        <h2>Automação de Testes Desktop e Web com TestComplete</h2>
-        <p>Aprenda do zero a criar, configurar e executar testes automatizados com TestComplete.</p>
-        <a href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1" target="_blank" class="btn primary">Acessar Curso</a>
+
+      <div class="curso-card">
+        <img src="imagens/curso-testcomplete.png">
+        <h2>Automação Desktop/Web com TestComplete</h2>
+        <p>Aprenda automação profissional com VBScript, objetos avançados e integração com Jenkins.</p>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1">Acessar Curso</a>
       </div>
-        <div class="curso-card">
-        <img src="imagens/curso-k6.png" alt="Curso Automação K6">
-        <h2>Domine Testes de Performance com k6</h2>
-        <p>Crie, valide e execute testes de carga, estresse e web browser, incluindo dashboards, métricas e Grafana Cloud.</p>
-        <a href="https://www.udemy.com/user/jeferson-caye/" target="_blank" class="btn primary">Acessar Curso</a>
+
+      <div class="curso-card">
+        <img src="imagens/curso-k6.png">
+        <h2>Testes de Performance com k6</h2>
+        <p>Aprenda carga, estresse, smoke, browser testing, dashboards e execução no Grafana Cloud.</p>
+        <a class="btn" target="_blank" href="https://www.udemy.com/user/jeferson-caye/">Acessar Curso</a>
       </div>
+
     </div>
 
-    <!-- Por que escolher -->
-    <section class="section" id="sobre">
-      <h2>Por que escolher CodeUp?</h2>
-      <ul>
-        <li><h4>Expertise</h4><p>Instrutor com experiência prática em automação e desenvolvimento.</p></li>
-        <li><h4>Prático</h4><p>Exercícios reais aplicáveis ao mercado de trabalho.</p></li>
-        <li><h4>Atualizado</h4><p>Conteúdo moderno e alinhado às melhores práticas.</p></li>
-        <li><h4>Flexível</h4><p>Estude no seu ritmo, de qualquer lugar.</p></li>
-      </ul>
-    </section>
+    <!-- Depoimentos -->
+    <section class="depo-section">
+      <h2>O que os alunos dizem</h2>
 
-    <!-- Próximos cursos -->
-    <section class="section">
-      <h2>Próximos Cursos</h2>
-      <div class="grid">
-        <div class="curso-card"><h2>Automação de Testes com Cypress e Typescript</h2><p>Em breve...</p></div>
-        <div class="curso-card"><h2>Automação de testes com TestComplete</h2><p>Em breve...</p></div>
-        <div class="curso-card"><h2>SQL para Testes</h2><p>Em breve...</p></div>
+      <div class="depo-carousel">
+        <div class="depo-wrapper">
+        <div class="depo-slide">"Esse curso é muito bom, além de ser muito didático era algo que eu estava com dificuldade de encontrar, conteúdos sobre playwright são extremamente escassos em português." <br><br><strong>– Eduardo Neves</strong></div>
+        <div class="depo-slide">"Otimo curso, explica detalhes necessarios para iniciantes." <br><br><strong>– Willian Hoffmann</strong></div>
+        <div class="depo-slide">"O curso é bem objetivo, já consegui aplicar no trabalho." <br><br><strong>– Ícaro Menezes</strong></div>
+        <div class="depo-slide">"Bom, direto ao ponto e único em Playwright com Python." <br><br><strong>– Gabriel Ferreira</strong></div>
+        <div class="depo-slide">"Excelente curso! Ensina com perfeição e didática automação de testes com Playwright, Python e Pytest!" <br><br><strong>– Fernando da Fonseca Schneider</strong></div>
+        <div class="depo-slide">"Conteúdo objetivo, sem enrolação e facil de acompanhar." <br><br><strong>– Gabriel Ferreira</strong></div>
+        <div class="depo-slide">"Eu curti muito o curso. As aulas são diretas, fáceis de entender e já dá pra praticar na hora. Aprendi a usar Playwright com Python para testar APIs sem complicação.
+            Os exemplos ajudam bastante e o conteúdo é bem aplicado ao dia a dia. Valeu a pena. Recomendo." <br><br><strong>– Jean Mira</strong></div>
+
+        </div>
+
+        <div class="depo-dots"></div>
       </div>
     </section>
 
+    <!-- Sobre o Instrutor -->
+    <section class="sobre" id="sobre">
+      <h2>Quem Sou Eu</h2>
+      <p>Sou um profissional de automação com anos de experiência real usando Playwright, Python, TestComplete, k6 e CI/CD.
+      Criei estes cursos para ensinar exatamente o que você precisa para se tornar um profissional acima da média.</p>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-final">
+      <h2>Comece Agora</h2>
+      <p>Garanta acesso vitalício, aulas atualizadas e suporte direto nas dúvidas.</p>
+      <a class="btn-hero" href="#cursos">Quero Acessar os Cursos</a>
+    </section>
   </div>
 
-  <!-- Script Dark/Light Mode -->
+  <!-- ----------- SCRIPT DO CARROSSEL ----------- -->
   <script>
-    function toggleTheme() {
-      document.body.dataset.theme =
-        document.body.dataset.theme === "light" ? "dark" : "light";
+    const wrapper = document.querySelector(".depo-wrapper");
+    const slides = document.querySelectorAll(".depo-slide");
+    const dotsContainer = document.querySelector(".depo-dots");
+
+    let index = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+      dotsContainer.querySelectorAll("span").forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
     }
+
+    function goToSlide(i) {
+      index = i;
+      wrapper.style.transform = `translateX(${-100 * index}%)`;
+      updateDots();
+    }
+
+    function autoSlide() {
+      index = (index + 1) % slides.length;
+      goToSlide(index);
+    }
+
+    updateDots();
+    setInterval(autoSlide, 4500);
+
+        const container = document.createElement("div");
+  container.className = "particles";
+  document.body.prepend(container);
+
+  const TOTAL = 200; // aumente para 250 se quiser MUITO cheio
+
+  for(let i=0; i<TOTAL; i++){
+    const p = document.createElement("div");
+    p.className = "particle";
+
+    const size = 2 + Math.random()*4; // 2px a 6px
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+
+    p.style.left = Math.random()*100 + "vw";
+    p.style.top = Math.random()*100 + "vh";
+
+    p.style.opacity = 0.3 + Math.random()*0.7;
+
+    // velocidade entre 4s e 18s
+    const speed = 4 + Math.random()*14;
+    p.style.animationDuration = speed + "s";
+
+    container.appendChild(p);
+  }
   </script>
+
 </body>
 </html>
