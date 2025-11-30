@@ -21,7 +21,6 @@
       padding-top:70px;
     }
 
-    /* Navbar */
     .navbar {
   position:fixed;
   top:0; left:0; right:0;
@@ -45,13 +44,11 @@
   letter-spacing:0.5px;
 }
 
-/* Container dos links */
 .navbar div {
   display:flex;
   gap:28px;
 }
 
-/* Links */
 .navbar a {
   color:var(--muted);
   text-decoration:none;
@@ -61,13 +58,11 @@
   transition:.25s ease;
 }
 
-/* Hover mais elegante */
 .navbar a:hover {
   color:var(--ink);
   text-shadow:0 0 6px rgba(255,255,255,0.25);
 }
 
-/* Versão mobile */
 @media(max-width:600px) {
   .navbar strong {
     font-size:20px;
@@ -80,7 +75,6 @@
   }
 }
 
-    /* HERO */
     .hero {
       text-align:center;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -104,10 +98,8 @@
       box-shadow:0 6px 14px rgba(108,99,255,.4);
     }
 
-    /* Grid */
     .wrap { max-width:1150px; margin:auto; padding:32px; }
 
-    /* ----------- AJUSTE: 2 cursos por linha ----------- */
     .grid {
       display:grid;
       gap:24px;
@@ -116,7 +108,6 @@
     @media(max-width:750px) {
       .grid { grid-template-columns:1fr; }
     }
-    /* -------------------------------------------------- */
 
     .curso-card {
       border:1px solid var(--line);
@@ -144,13 +135,10 @@
       font-size:16px;
     }
 
-    /* Títulos de seções */
     .depo-section h2,
     .section h2 {
       text-align:center; margin:60px 0 25px; font-size:30px;
     }
-
-    /* ----------- NOVO: CARROSSEL DE DEPOIMENTOS ----------- */
 
     .depo-carousel {
       position: relative;
@@ -194,9 +182,6 @@
       opacity:1;
     }
 
-    /* ------------------------------------------------------ */
-
-    /* Sobre */
     .sobre {
       max-width:900px;
       margin:60px auto;
@@ -208,7 +193,6 @@
     }
     .sobre p { color:var(--muted); font-size:17px; }
 
-    /* CTA Final */
     .cta-final {
       text-align:center; padding:60px 20px;
       background:rgba(255,255,255,0.02);
@@ -249,12 +233,10 @@ background:rgba(255,255,255,0.02);
 text-align:center;
 }
 
-
 .consultorias h2 {
 font-size:32px;
 margin-bottom:15px;
 }
-
 
 .form-consultoria {
 display:flex;
@@ -263,7 +245,6 @@ gap:15px;
 margin-top:25px;
 text-align:left;
 }
-
 
 .form-consultoria input,
 .form-consultoria textarea {
@@ -276,7 +257,6 @@ color:var(--ink);
 font-size:16px;
 }
 
-
 .form-consultoria button {
 margin-top:8px;
 padding:14px;
@@ -288,7 +268,6 @@ font-weight:bold;
 cursor:pointer;
 }
 
-
 .form-consultoria button:hover {
 opacity:0.9;
 }
@@ -298,7 +277,6 @@ opacity:0.9;
 
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <strong>CodeUp</strong>
     <div>
@@ -308,7 +286,6 @@ opacity:0.9;
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <h1>Domine Automação de Testes com Projetos Reais</h1>
     <p>Aprenda com quem vive automação no dia a dia.</p>
@@ -316,7 +293,6 @@ opacity:0.9;
 
   <div class="wrap">
 
-    <!-- Cursos -->
     <h2 style="text-align:center; margin-bottom:20px" id="cursos">Cursos Disponíveis</h2>
 
     <div class="grid">
@@ -351,7 +327,6 @@ opacity:0.9;
 
     </div>
 
-    <!-- Depoimentos -->
     <section class="depo-section">
       <h2>O que os alunos dizem</h2>
 
@@ -374,12 +349,9 @@ opacity:0.9;
 
       <div class="wrap">
 
-
-<!-- NOVA SESSÃO: CONSULTORIA E MENTORIA -->
 <section id="consultorias" class="consultorias">
 <h2>Suporte Técnico Personalizado</h2>
 <p>Para projetos específicos, carreira, automação ou dúvidas técnicas.</p>
-
 
 <form action="https://formspree.io/f/mrbnebrn" method="POST" class="form-consultoria">
 <label>
@@ -394,14 +366,12 @@ Sua mensagem:
 </form>
 </section>
 
-    <!-- Sobre o Instrutor -->
     <section class="sobre" id="sobre">
       <h2>Quem Sou Eu</h2>
       <p>Sou um profissional de automação com anos de experiência real usando Playwright, Python, TestComplete, k6 e CI/CD.
       Criei estes cursos para ensinar exatamente o que você precisa para se tornar um profissional acima da média.</p>
     </section>
 
-    <!-- CTA Final -->
     <section class="cta-final">
       <h2>Comece Agora</h2>
       <p>Garanta acesso vitalício, aulas atualizadas e suporte direto nas dúvidas.</p>
@@ -409,9 +379,6 @@ Sua mensagem:
     </section>
   </div>
 
-
-
-  <!-- ----------- SCRIPT DO CARROSSEL ----------- -->
   <script>
     const wrapper = document.querySelector(".depo-wrapper");
     const slides = document.querySelectorAll(".depo-slide");
@@ -449,13 +416,13 @@ Sua mensagem:
   container.className = "particles";
   document.body.prepend(container);
 
-  const TOTAL = 200; // aumente para 250 se quiser MUITO cheio
+  const TOTAL = 200;
 
   for(let i=0; i<TOTAL; i++){
     const p = document.createElement("div");
     p.className = "particle";
 
-    const size = 2 + Math.random()*4; // 2px a 6px
+    const size = 2 + Math.random()*4;
     p.style.width = size + "px";
     p.style.height = size + "px";
 
@@ -464,7 +431,6 @@ Sua mensagem:
 
     p.style.opacity = 0.3 + Math.random()*0.7;
 
-    // velocidade entre 4s e 18s
     const speed = 4 + Math.random()*14;
     p.style.animationDuration = speed + "s";
 
