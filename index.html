@@ -7,6 +7,15 @@
 
   <meta name="description" content="Cursos profissionais de automação de testes com Playwright, Python, API, Pytest, TestComplete e k6. Entre no mercado com projetos reais e boas práticas.">
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TBV8MW7SG6');
+  </script>
+
   <style>
     :root {
       --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
@@ -95,27 +104,39 @@
       font-size:18px;
       font-weight:bold;
       display:inline-block;
+      text-decoration:none;
       box-shadow:0 6px 14px rgba(108,99,255,.4);
+      transition:opacity .25s ease;
     }
+    .btn-hero:hover { opacity:.88; }
 
     .wrap { max-width:1150px; margin:auto; padding:32px; }
 
     .grid {
       display:grid;
       gap:24px;
-      grid-template-columns:repeat(2, 1fr);
+      grid-template-columns:repeat(3, 1fr);
     }
-    @media(max-width:750px) {
+    @media(max-width:900px) {
+      .grid { grid-template-columns:repeat(2, 1fr); }
+    }
+    @media(max-width:600px) {
       .grid { grid-template-columns:1fr; }
     }
 
     .curso-card {
+      position:relative;
       border:1px solid var(--line);
       border-radius:16px;
       background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
       padding:22px;
       display:flex;
       flex-direction:column;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .curso-card:hover {
+      transform:translateY(-4px);
+      box-shadow:0 16px 36px rgba(108,99,255,.2);
     }
     .curso-card img {
       width:100%; border-radius:12px; margin-bottom:15px;
@@ -123,6 +144,19 @@
     }
     .curso-card h2 { color:var(--brand); font-size:21px; margin:0 0 10px; }
     .curso-card p { flex:1; color:var(--muted); }
+
+    .badge-novo {
+      position:absolute;
+      top:12px; right:12px;
+      background:#4ade80;
+      color:#0b1020;
+      font-size:11px;
+      font-weight:700;
+      padding:4px 10px;
+      border-radius:20px;
+      letter-spacing:0.6px;
+      text-transform:uppercase;
+    }
 
     .btn {
       margin-top:18px;
@@ -133,7 +167,10 @@
       color:#0d1220;
       font-weight:600;
       font-size:16px;
+      text-decoration:none;
+      display:block;
     }
+    .btn:hover { opacity:.88; }
 
     .depo-section h2,
     .section h2 {
@@ -272,6 +309,102 @@ cursor:pointer;
 opacity:0.9;
 }
 
+    .social-proof {
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:15px;
+      margin-bottom:27px;
+    }
+    .social-proof .sp-dot { opacity:.35; }
+    .social-proof .sp-star { color:#fbbf24; }
+
+    .card-rating {
+      font-size:13px;
+      margin-top:10px;
+      color:#fbbf24;
+    }
+    .card-rating span { color:var(--muted); margin-left:4px; }
+
+    .badge-start {
+      position:absolute;
+      top:12px; left:12px;
+      background:var(--accent);
+      color:#0b1020;
+      font-size:11px;
+      font-weight:700;
+      padding:4px 10px;
+      border-radius:20px;
+      letter-spacing:0.6px;
+      text-transform:uppercase;
+    }
+
+    .depo-prev, .depo-next {
+      position:absolute;
+      top:50%; transform:translateY(-50%);
+      background:rgba(255,255,255,0.05);
+      border:1px solid var(--line);
+      color:var(--ink);
+      width:36px; height:36px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:16px;
+      z-index:2;
+      transition:background .2s;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .depo-prev:hover, .depo-next:hover { background:rgba(255,255,255,0.13); }
+    .depo-prev { left:-18px; }
+    .depo-next { right:-18px; }
+
+    .sobre-stats {
+      display:flex;
+      justify-content:center;
+      gap:40px;
+      margin-top:25px;
+      flex-wrap:wrap;
+    }
+    .sobre-stats div { display:flex; flex-direction:column; align-items:center; }
+    .sobre-stats strong { font-size:28px; color:var(--brand); }
+    .sobre-stats span { font-size:13px; color:var(--muted); }
+
+    .faq { max-width:900px; margin:60px auto; }
+    .faq h2 { text-align:center; margin:0 0 25px; font-size:30px; }
+    .faq details {
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:16px 20px;
+      margin-bottom:12px;
+      background:rgba(255,255,255,0.02);
+      transition:border-color .2s;
+    }
+    .faq details[open] { border-color:var(--brand); }
+    .faq summary {
+      cursor:pointer;
+      font-weight:600;
+      font-size:16px;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      user-select:none;
+    }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:'+'; color:var(--brand); font-size:20px; line-height:1; }
+    .faq details[open] summary::after { content:'−'; }
+    .faq details p { color:var(--muted); margin:12px 0 0; line-height:1.7; }
+
+    .footer {
+      text-align:center;
+      padding:30px;
+      color:var(--muted);
+      font-size:14px;
+      border-top:1px solid var(--line);
+      margin-top:60px;
+    }
+
   </style>
 </head>
 
@@ -289,6 +422,16 @@ opacity:0.9;
   <section class="hero">
     <h1>Domine Automação de Testes com Projetos Reais</h1>
     <p>Aprenda com quem vive automação no dia a dia.</p>
+    <div class="social-proof">
+      <span>5 cursos</span>
+      <span class="sp-dot">·</span>
+      <span>2.742 alunos</span>
+      <span class="sp-dot">·</span>
+      <span><span class="sp-star">★</span> 4.8 média</span>
+      <span class="sp-dot">·</span>
+      <span>140 avaliações</span>
+    </div>
+    <a class="btn-hero" href="#cursos">Ver os Cursos</a>
   </section>
 
   <div class="wrap">
@@ -298,31 +441,44 @@ opacity:0.9;
     <div class="grid">
 
       <div class="curso-card">
-        <img src="imagens/curso-playwright-web.png">
+        <span class="badge-start">Comece Aqui</span>
+        <span class="badge-novo">Novo</span>
+        <img src="imagens/curso-python-qa.png" alt="Python para QAs">
+        <h2>Python para QAs</h2>
+        <p>Aprenda Python do zero focado para qualidade de software: lógica de programação, estruturas de dados e a base sólida para dominar qualquer framework de testes.</p>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E" onclick="gtag('event','click_curso',{curso:'Python para QAs'})">Acessar Curso</a>
+      </div>
+
+      <div class="curso-card">
+        <img src="imagens/curso-playwright-web.png" alt="Automação Web com Playwright, Python e Pytest">
         <h2>Automação Web com Playwright, Python e Pytest</h2>
         <p>Aprenda do zero até o avançado com POM, fixtures, boas práticas, CI/CD e muitos exercícios práticos.</p>
-        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12">Acessar Curso</a>
+        <div class="card-rating">★★★★★ <span>4.8</span></div>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12" onclick="gtag('event','click_curso',{curso:'Playwright Web'})">Acessar Curso</a>
       </div>
 
       <div class="curso-card">
-        <img src="imagens/curso-playwright-api.png">
+        <img src="imagens/curso-playwright-api.png" alt="Automação de Testes de API com Playwright">
         <h2>Automação de Testes de API com Playwright</h2>
         <p>Domine testes de API com Python, validação avançada de JSON, execução paralela e testes de carga.</p>
-        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185">Acessar Curso</a>
+        <div class="card-rating">★★★★☆ <span>4.7</span></div>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185" onclick="gtag('event','click_curso',{curso:'Playwright API'})">Acessar Curso</a>
       </div>
 
       <div class="curso-card">
-        <img src="imagens/curso-testcomplete.png">
+        <img src="imagens/curso-testcomplete.png" alt="Automação Desktop e Web com TestComplete">
         <h2>Automação Desktop/Web com TestComplete</h2>
         <p>Aprenda automação profissional com VBScript, objetos avançados e integração com Jenkins.</p>
-        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1">Acessar Curso</a>
+        <div class="card-rating">★★★★★ <span>5.0</span></div>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1" onclick="gtag('event','click_curso',{curso:'TestComplete'})">Acessar Curso</a>
       </div>
 
       <div class="curso-card">
-        <img src="imagens/curso-k6.png">
+        <img src="imagens/curso-k6.png" alt="Testes de Performance com k6">
         <h2>Testes de Performance com k6</h2>
         <p>Aprenda carga, estresse, smoke, browser testing, dashboards e execução no Grafana Cloud.</p>
-        <a class="btn" target="_blank" href="https://www.udemy.com/course/domine-testes-de-performance-com-k6/?referralCode=92EA17EA768BDC8524E9">Acessar Curso</a>
+        <div class="card-rating">★★★★★ <span>4.9</span></div>
+        <a class="btn" target="_blank" href="https://www.udemy.com/course/domine-testes-de-performance-com-k6/?referralCode=92EA17EA768BDC8524E9" onclick="gtag('event','click_curso',{curso:'k6'})">Acessar Curso</a>
       </div>
 
     </div>
@@ -331,15 +487,21 @@ opacity:0.9;
       <h2>O que os alunos dizem</h2>
 
       <div class="depo-carousel">
+        <button class="depo-prev" aria-label="Anterior">&#8592;</button>
+        <button class="depo-next" aria-label="Próximo">&#8594;</button>
         <div class="depo-wrapper">
-        <div class="depo-slide">"Esse curso é muito bom, além de ser muito didático era algo que eu estava com dificuldade de encontrar, conteúdos sobre playwright são extremamente escassos em português." <br><br><strong>– Eduardo Neves</strong></div>
-        <div class="depo-slide">"Otimo curso, explica detalhes necessarios para iniciantes." <br><br><strong>– Willian Hoffmann</strong></div>
-        <div class="depo-slide">"O curso é bem objetivo, já consegui aplicar no trabalho." <br><br><strong>– Ícaro Menezes</strong></div>
-        <div class="depo-slide">"Bom, direto ao ponto e único em Playwright com Python." <br><br><strong>– Gabriel Ferreira</strong></div>
-        <div class="depo-slide">"Excelente curso! Ensina com perfeição e didática automação de testes com Playwright, Python e Pytest!" <br><br><strong>– Fernando da Fonseca Schneider</strong></div>
-        <div class="depo-slide">"Conteúdo objetivo, sem enrolação e facil de acompanhar." <br><br><strong>– Gabriel Ferreira</strong></div>
+        <div class="depo-slide">"Esse curso é muito bom, além de ser muito didático era algo que eu estava com dificuldade de encontrar, conteúdos sobre playwright são extremamente escassos em português." <br><br><strong>– Eduardo N.</strong></div>
+        <div class="depo-slide">"Otimo curso, explica detalhes necessarios para iniciantes." <br><br><strong>– Willian H.</strong></div>
+        <div class="depo-slide">"O curso é bem objetivo, já consegui aplicar no trabalho." <br><br><strong>– Ícaro M.</strong></div>
+        <div class="depo-slide">"Bom, direto ao ponto e único em Playwright com Python." <br><br><strong>– Gabriel F.</strong></div>
+        <div class="depo-slide">"Excelente curso! Ensina com perfeição e didática automação de testes com Playwright, Python e Pytest!" <br><br><strong>– Fernando S.</strong></div>
+        <div class="depo-slide">"Conteúdo objetivo, sem enrolação e facil de acompanhar." <br><br><strong>– Gabriel F.</strong></div>
         <div class="depo-slide">"Eu curti muito o curso. As aulas são diretas, fáceis de entender e já dá pra praticar na hora. Aprendi a usar Playwright com Python para testar APIs sem complicação.
-            Os exemplos ajudam bastante e o conteúdo é bem aplicado ao dia a dia. Valeu a pena. Recomendo." <br><br><strong>– Jean Mira</strong></div>
+            Os exemplos ajudam bastante e o conteúdo é bem aplicado ao dia a dia. Valeu a pena. Recomendo." <br><br><strong>– Jean M.</strong></div>
+        <div class="depo-slide">"Ajudou muito a guiar meu projeto, muito grato." <br><br><strong>– Allef H.</strong></div>
+        <div class="depo-slide">"Muito ansioso para a continuidade da aprendizagem." <br><br><strong>– Marcone T.</strong></div>
+        <div class="depo-slide">"Recomendadíssimo, principalmente para quem nunca teve contato com a ferramenta!" <br><br><strong>– Washington A.</strong></div>
+        <div class="depo-slide">"Era sim o que esperava e consegui aplicar num projeto real da empresa. Achei bem didático." <br><br><strong>– Elizangela M.</strong></div>
 
         </div>
 
@@ -347,11 +509,44 @@ opacity:0.9;
       </div>
     </section>
 
-      <div class="wrap">
+    <section class="faq">
+      <h2>Perguntas Frequentes</h2>
+      <details>
+        <summary>Os cursos são para iniciantes?</summary>
+        <p>Os cursos atendem tanto iniciantes quanto profissionais que querem evoluir. Cada curso indica o nível recomendado, mas a maioria começa do zero e avança até tópicos avançados.</p>
+      </details>
+      <details>
+        <summary>Preciso saber programar para começar?</summary>
+        <p>Não. O curso de Python para QAs cobre tudo desde o início. Para os outros cursos, ter a base de Python ajuda mas não é obrigatório.</p>
+      </details>
+      <details>
+        <summary>O acesso ao curso expira?</summary>
+        <p>Não. Todos os cursos são na Udemy com acesso vitalício, incluindo atualizações futuras.</p>
+      </details>
+      <details>
+        <summary>Tem suporte para dúvidas?</summary>
+        <p>Sim. Você pode tirar dúvidas diretamente pela plataforma da Udemy ou usar o formulário de suporte técnico desta página para questões mais específicas.</p>
+      </details>
+      <details>
+        <summary>Qual curso fazer primeiro?</summary>
+        <p>Se você não tem base em Python, comece pelo <strong>Python para QAs</strong>. Se já programa, pode ir direto para Playwright Web ou API, dependendo do seu foco.</p>
+      </details>
+    </section>
+
+    <section class="sobre" id="sobre">
+      <h2>Quem Sou Eu</h2>
+      <p>Sou QA Engineer com experiência real em automação de testes usando Playwright, Python, TestComplete, k6 e CI/CD. Trabalho com projetos reais no dia a dia e criei estes cursos para ensinar o que realmente importa: sem enrolação, com projetos práticos e as ferramentas que o mercado exige.</p>
+      <div class="sobre-stats">
+        <div><strong>2.742</strong><span>alunos</span></div>
+        <div><strong>★ 4.8</strong><span>avaliação</span></div>
+        <div><strong>5</strong><span>cursos</span></div>
+        <div><strong>140</strong><span>avaliações</span></div>
+      </div>
+    </section>
 
 <section id="consultorias" class="consultorias">
 <h2>Suporte Técnico Personalizado</h2>
-<p>Para projetos específicos, carreira, automação ou dúvidas técnicas.</p>
+<p>Para projetos específicos, carreira, automação ou dúvidas.</p>
 
 <form action="https://formspree.io/f/mrbnebrn" method="POST" class="form-consultoria">
 <label>
@@ -366,12 +561,6 @@ Sua mensagem:
 </form>
 </section>
 
-    <section class="sobre" id="sobre">
-      <h2>Quem Sou Eu</h2>
-      <p>Sou um profissional de automação com anos de experiência real usando Playwright, Python, TestComplete, k6 e CI/CD.
-      Criei estes cursos para ensinar exatamente o que você precisa para se tornar um profissional acima da média.</p>
-    </section>
-
     <section class="cta-final">
       <h2>Comece Agora</h2>
       <p>Garanta acesso vitalício, aulas atualizadas e suporte direto nas dúvidas.</p>
@@ -379,18 +568,33 @@ Sua mensagem:
     </section>
   </div>
 
+
   <script>
     const wrapper = document.querySelector(".depo-wrapper");
     const slides = document.querySelectorAll(".depo-slide");
     const dotsContainer = document.querySelector(".depo-dots");
+    const carousel = document.querySelector(".depo-carousel");
 
     let index = 0;
+    let paused = false;
 
     slides.forEach((_, i) => {
       const dot = document.createElement("span");
       dot.addEventListener("click", () => goToSlide(i));
       dotsContainer.appendChild(dot);
     });
+
+    document.querySelector(".depo-prev").addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      goToSlide(index);
+    });
+    document.querySelector(".depo-next").addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      goToSlide(index);
+    });
+
+    carousel.addEventListener("mouseenter", () => paused = true);
+    carousel.addEventListener("mouseleave", () => paused = false);
 
     function updateDots() {
       dotsContainer.querySelectorAll("span").forEach((dot, i) => {
@@ -405,8 +609,10 @@ Sua mensagem:
     }
 
     function autoSlide() {
-      index = (index + 1) % slides.length;
-      goToSlide(index);
+      if (!paused) {
+        index = (index + 1) % slides.length;
+        goToSlide(index);
+      }
     }
 
     updateDots();
