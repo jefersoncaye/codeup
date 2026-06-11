@@ -4,134 +4,66 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Playwright com Python: automação web e de API | CodeUp</title>
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236c63ff'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d6a4f'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
   <meta name="description" content="Guia completo do Playwright com Python: automação web com Pytest e testes de API com APIRequestContext. O que é, por que usar, benefícios e quem mantém.">
-  <meta name="keywords" content="playwright com python, automação web playwright python, playwright pytest, testes de API playwright python, playwright APIRequestContext, aprender playwright">
+  <meta name="keywords" content="playwright com python, automação web playwright python, playwright pytest, testes de API playwright python, playwright APIRequestContext">
   <meta name="author" content="CodeUp">
   <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/playwright-python.html">
-
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/playwright-python.html">
   <meta property="og:title" content="Playwright com Python: automação web e de API | CodeUp">
-  <meta property="og:description" content="Guia completo do Playwright com Python: automação web com Pytest e testes de API com APIRequestContext. O que é, por que usar e benefícios.">
+  <meta property="og:description" content="Guia completo do Playwright com Python cobrindo automação web com Pytest e testes de API com APIRequestContext.">
   <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-playwright-web.png">
   <meta property="og:locale" content="pt_BR">
-
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Playwright com Python: automação web e de API",
-    "description": "Guia completo do Playwright com Python cobrindo automação web com Pytest e testes de API com APIRequestContext.",
-    "url": "https://jefersoncaye.github.io/codeup/blog/playwright-python.html",
-    "inLanguage": "pt-BR",
-    "author": { "@type": "Person", "name": "Jeferson Caye" },
-    "publisher": { "@type": "Organization", "name": "CodeUp" }
-  }
+  {"@context":"https://schema.org","@type":"Article","headline":"Playwright com Python: automação web e de API","url":"https://jefersoncaye.github.io/codeup/blog/playwright-python.html","inLanguage":"pt-BR","author":{"@type":"Person","name":"Jeferson Caye"},"publisher":{"@type":"Organization","name":"CodeUp"}}
   </script>
-
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-TBV8MW7SG6');
-  </script>
-
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TBV8MW7SG6');</script>
   <style>
-    :root {
-      --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
-      --brand:#6c63ff; --accent:#89b4fa; --line:#1a2342;
-    }
-    body {
-      margin:0; font-family:Inter,system-ui,Arial;
-      color:var(--ink); background:var(--bg); line-height:1.6; padding-top:70px;
-    }
-    .navbar {
-      position:fixed; top:0; left:0; right:0; height:70px;
-      display:flex; justify-content:space-between; align-items:center;
-      background:var(--panel); border-bottom:1px solid var(--line);
-      padding:0 32px; z-index:1000;
-    }
-    .navbar strong a { font-size:22px; color:var(--ink); font-weight:700; text-decoration:none; letter-spacing:0.5px; }
-    .navbar div { display:flex; gap:28px; }
-    .navbar a {
-      color:var(--muted); text-decoration:none; font-size:16px;
-      font-weight:500; padding:6px 4px; transition:.25s ease;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#f7f5f0; --bg2:#efece4; --ink:#1a1714; --muted:#7a7469; --accent:#2d6a4f; --accent2:#52b788; --line:#ddd9d0; }
+    body { font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--ink); line-height:1.6; padding-top:64px; }
+    .navbar { position:fixed; top:0; left:0; right:0; height:64px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); border-bottom:1px solid var(--line); padding:0 40px; z-index:1000; }
+    .navbar strong a { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:var(--ink); text-decoration:none; }
+    .navbar .nav-links { display:flex; gap:28px; }
+    .navbar a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s; }
     .navbar a:hover { color:var(--ink); }
-    .navbar a.active { color:var(--brand); }
-    @media(max-width:600px) {
-      .navbar div { gap:16px; }
-      .navbar a { font-size:14px; }
-    }
-    .particles { position:fixed; inset:0; z-index:-1; pointer-events:none; }
-    .particle {
-      position:absolute; width:4px; height:4px;
-      background:#ffffff22; border-radius:50%; animation:rise linear infinite;
-    }
-    @keyframes rise {
-      from { transform:translateY(0); opacity:1; }
-      to { transform:translateY(-120vh); opacity:0; }
-    }
-    .wrap { max-width:1150px; margin:auto; padding:32px; }
-    .breadcrumb { max-width:760px; margin:0 auto 24px; font-size:13px; color:var(--muted); }
+    .navbar a.active { color:var(--accent); }
+    @media(max-width:600px) { .navbar { padding:0 20px; } .navbar .nav-links { gap:14px; } .navbar a { font-size:13px; } }
+    .wrap { max-width:1100px; margin:0 auto; padding:32px 40px 64px; }
+    @media(max-width:600px) { .wrap { padding:24px 20px 48px; } }
+    .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:28px; }
     .breadcrumb a { color:var(--muted); text-decoration:none; }
-    .breadcrumb a:hover { color:var(--brand); }
+    .breadcrumb a:hover { color:var(--accent); }
     .breadcrumb span { margin:0 6px; opacity:.5; }
-    .article { max-width:760px; margin:0 auto; }
-    .article-tag {
-      display:inline-block; font-size:11px; font-weight:700;
-      text-transform:uppercase; letter-spacing:0.6px;
-      background:rgba(108,99,255,.15); color:var(--brand);
-      padding:4px 10px; border-radius:20px; margin-bottom:16px;
-    }
-    .article h1 { font-size:36px; margin:0 0 10px; line-height:1.25; }
-    .article-meta { color:var(--muted); font-size:13px; margin-bottom:36px; padding-bottom:24px; border-bottom:1px solid var(--line); }
-    .article h2 { font-size:22px; color:var(--brand); margin:40px 0 12px; }
-    .article h3 { font-size:18px; color:var(--ink); margin:28px 0 10px; }
-    .article p { color:var(--muted); margin:0 0 16px; }
-    .article ul { color:var(--muted); padding-left:20px; margin:0 0 16px; }
+    .article { max-width:760px; }
+    .article-tag { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; background:rgba(45,106,79,.1); color:var(--accent); padding:3px 9px; border-radius:4px; margin-bottom:14px; }
+    .article h1 { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-1.5px; line-height:1.2; margin-bottom:8px; }
+    .article-meta { color:var(--muted); font-size:13px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:32px; }
+    .article h2 { font-size:20px; font-weight:800; color:var(--accent); margin:36px 0 10px; }
+    .article h3 { font-size:17px; font-weight:700; color:var(--ink); margin:24px 0 8px; }
+    .article p { color:var(--muted); margin:0 0 14px; }
+    .article ul { color:var(--muted); padding-left:20px; margin:0 0 14px; }
     .article ul li { margin-bottom:6px; }
     .article strong { color:var(--ink); }
-    .section-divider {
-      border:none; border-top:1px solid var(--line);
-      margin:52px 0;
-    }
-    .cta-box {
-      display:flex; gap:24px; align-items:center;
-      background:var(--panel); border:1px solid var(--brand);
-      border-radius:16px; padding:24px; margin-top:28px;
-    }
-    .cta-box img { width:160px; border-radius:10px; flex-shrink:0; }
-    .cta-box-text h3 { font-size:20px; margin:0 0 8px; color:var(--ink); }
-    .cta-box-text p { color:var(--muted); font-size:14px; margin:0 0 16px; }
-    .btn {
-      display:inline-block; padding:12px 22px; border-radius:12px;
-      background:linear-gradient(135deg,var(--brand),#4c4aff);
-      color:#0d1220; font-weight:600; font-size:15px; text-decoration:none;
-    }
-    .btn:hover { opacity:.88; }
-    @media(max-width:600px) {
-      .cta-box { flex-direction:column; }
-      .cta-box img { width:100%; }
-      .article h1 { font-size:28px; }
-    }
-    .footer {
-      text-align:center; padding:30px; color:var(--muted);
-      font-size:14px; border-top:1px solid var(--line); margin-top:60px;
-    }
-    .footer a { color:var(--muted); }
+    .section-divider { border:none; border-top:1px solid var(--line); margin:44px 0; }
+    .cta-box { display:flex; gap:22px; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:22px; margin-top:24px; }
+    .cta-box img { width:150px; border-radius:8px; flex-shrink:0; }
+    .cta-box-text h3 { font-size:18px; font-weight:800; color:var(--ink); margin:0 0 6px; }
+    .cta-box-text p { color:var(--muted); font-size:13px; margin:0 0 14px; }
+    .btn { display:inline-block; padding:11px 20px; border-radius:8px; background:var(--accent); color:#fff; font-weight:600; font-size:14px; text-decoration:none; transition:opacity .2s; }
+    .btn:hover { opacity:.85; }
+    @media(max-width:600px) { .cta-box { flex-direction:column; } .cta-box img { width:100%; } }
+    .footer { text-align:center; padding:20px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
+    .footer a { color:var(--muted); text-decoration:none; }
+    .footer a:hover { color:var(--ink); }
   </style>
 </head>
 <body>
-
   <nav class="navbar">
     <strong><a href="../index.html">CodeUp</a></strong>
-    <div>
+    <div class="nav-links">
       <a href="../index.html#cursos">Cursos</a>
       <a href="../index.html#consultorias">Consultorias</a>
       <a href="../index.html#sobre">Sobre</a>
@@ -141,10 +73,8 @@
 
   <div class="wrap">
     <nav class="breadcrumb">
-      <a href="../index.html">CodeUp</a>
-      <span>›</span>
-      <a href="index.html">Blog</a>
-      <span>›</span>
+      <a href="../index.html">CodeUp</a><span>›</span>
+      <a href="index.html">Blog</a><span>›</span>
       Playwright com Python
     </nav>
 
@@ -154,43 +84,28 @@
       <div class="article-meta">Por Jeferson Caye · CodeUp</div>
 
       <h2>O que é o Playwright?</h2>
-      <p>
-        O <strong>Playwright</strong> é um framework open-source de automação criado e mantido pela <strong>Microsoft</strong>.
-        Lançado em 2020, cresceu rapidamente para se tornar uma das ferramentas mais adotadas por times de QA —
-        e com razão: ele resolve os problemas clássicos do Selenium com uma API moderna, confiável e com muito menos código.
-      </p>
-      <p>
-        Com uma única instalação você consegue automatizar <strong>Chromium</strong> (Chrome, Edge), <strong>Firefox</strong> e
-        <strong>WebKit</strong> (Safari), além de fazer requisições HTTP diretamente — cobrindo testes de UI e de API
-        no mesmo projeto, com o mesmo framework.
-      </p>
+      <p>O <strong>Playwright</strong> é um framework open-source de automação criado e mantido pela <strong>Microsoft</strong>. Lançado em 2020, cresceu rapidamente para se tornar uma das ferramentas mais adotadas por times de QA em todo o mundo. Com uma API moderna e confiável, ele resolve os problemas clássicos do Selenium com muito menos código.</p>
+      <p>Com uma única instalação você consegue automatizar <strong>Chromium</strong> (Chrome, Edge), <strong>Firefox</strong> e <strong>WebKit</strong> (Safari), além de fazer requisições HTTP diretamente, cobrindo testes de UI e de API no mesmo projeto.</p>
 
       <h2>Por que usar Playwright com Python?</h2>
       <ul>
-        <li><strong>Python é a linguagem de QA mais usada no mercado</strong> — simples, legível e com enorme comunidade.</li>
-        <li><strong>Integração nativa com Pytest</strong> — fixtures, marcadores, paralelismo e relatórios sem configuração extra.</li>
-        <li><strong>Menos boilerplate</strong> que Selenium com Java: você faz mais com menos código.</li>
-        <li><strong>Auto-wait nativo</strong> — o Playwright espera os elementos estarem prontos automaticamente, eliminando a maioria dos <code>sleep()</code>s manuais.</li>
+        <li><strong>Python é a linguagem de QA mais usada no mercado:</strong> simples, legível e com enorme comunidade.</li>
+        <li><strong>Integração nativa com Pytest:</strong> fixtures, marcadores, paralelismo e relatórios sem configuração extra.</li>
+        <li><strong>Menos boilerplate que Selenium:</strong> você faz mais com menos código.</li>
+        <li><strong>Auto-wait nativo:</strong> o Playwright espera os elementos estarem prontos automaticamente, eliminando a maioria dos <code>sleep()</code> manuais.</li>
       </ul>
 
       <h2>Por quem o Playwright é mantido?</h2>
-      <p>
-        O Playwright é desenvolvido e mantido pela <strong>Microsoft</strong>, com código aberto no GitHub e mais de 65 mil estrelas.
-        Recebe atualizações semanais, garantindo compatibilidade com os navegadores mais recentes e suporte contínuo à comunidade.
-      </p>
+      <p>O Playwright é desenvolvido e mantido pela <strong>Microsoft</strong>, com código aberto no GitHub e mais de 65 mil estrelas. Recebe atualizações semanais, garantindo compatibilidade com os navegadores mais recentes e suporte contínuo à comunidade.</p>
 
       <hr class="section-divider">
 
       <h2>Automação Web com Playwright</h2>
-      <p>
-        Para testes de interface, o Playwright oferece uma das experiências mais completas do mercado.
-        Você interage com elementos da página da mesma forma que um usuário real faria — clicando, digitando,
-        navegando — mas de forma automatizada, rápida e reproduzível.
-      </p>
+      <p>Para testes de interface, o Playwright oferece uma das experiências mais completas do mercado. Você interage com elementos da página da mesma forma que um usuário real faria, de forma automatizada, rápida e reproduzível.</p>
 
       <h3>Principais benefícios para testes web</h3>
       <ul>
-        <li><strong>Auto-wait:</strong> aguarda elementos aparecerem, ficarem visíveis e clicáveis — sem esperas manuais.</li>
+        <li><strong>Auto-wait:</strong> aguarda elementos aparecerem, ficarem visíveis e clicáveis, sem esperas manuais.</li>
         <li><strong>Execução paralela nativa:</strong> rode testes em múltiplos browsers e workers simultaneamente.</li>
         <li><strong>Playwright Codegen:</strong> grava suas ações no browser e gera o código Python automaticamente.</li>
         <li><strong>Traces e relatórios visuais:</strong> screenshots, vídeo e logs de rede gerados automaticamente para debugging.</li>
@@ -210,28 +125,19 @@
         <div class="cta-box-text">
           <h3>Automação Web com Playwright, Python e Pytest</h3>
           <p>Do zero ao avançado: POM, fixtures, CI/CD, paralelismo e projetos reais. Acesso vitalício na Udemy.</p>
-          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12&couponCode=JUN2026"
-             onclick="gtag('event','click_blog_cta',{page:'playwright-web'})">
-            Ver Curso no Udemy →
-          </a>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12&couponCode=JUN2026" onclick="gtag('event','click_blog_cta',{page:'playwright-web'})">Ver Curso no Udemy</a>
         </div>
       </div>
 
       <hr class="section-divider">
 
       <h2>Testes de API com Playwright</h2>
-      <p>
-        Além da automação de UI, o Playwright tem um módulo nativo chamado <strong>APIRequestContext</strong>
-        que permite fazer requisições HTTP diretamente nos testes — sem precisar de bibliotecas extras como Requests ou HTTPx.
-      </p>
-      <p>
-        O grande diferencial é usar o <strong>mesmo framework</strong> para testes web e testes de API: uma única
-        configuração de CI/CD, fixtures do Pytest compartilhadas e relatórios unificados.
-      </p>
+      <p>Além da automação de UI, o Playwright tem um módulo nativo chamado <strong>APIRequestContext</strong> que permite fazer requisições HTTP diretamente nos testes, sem precisar de bibliotecas extras como Requests ou HTTPx.</p>
+      <p>O grande diferencial é usar o <strong>mesmo framework</strong> para testes web e de API: uma única configuração de CI/CD, fixtures do Pytest compartilhadas e relatórios unificados.</p>
 
       <h3>Por que usar Playwright para testes de API?</h3>
       <ul>
-        <li>Compartilhe autenticação entre testes de UI e API — faça login via API e reutilize o estado na interface.</li>
+        <li>Compartilhe autenticação entre testes de UI e API: faça login via API e reutilize o estado na interface.</li>
         <li>Valide status code, headers e body JSON com assertions nativas do Playwright.</li>
         <li>Execute centenas de testes de API em paralelo com Pytest.</li>
         <li>Simule comportamentos de APIs externas com mocking de respostas.</li>
@@ -250,35 +156,14 @@
         <div class="cta-box-text">
           <h3>Automação de Testes de API com Playwright</h3>
           <p>Validação avançada de JSON, execução paralela, mocking e projetos reais. Acesso vitalício na Udemy.</p>
-          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185&couponCode=JUN2026"
-             onclick="gtag('event','click_blog_cta',{page:'playwright-api'})">
-            Ver Curso no Udemy →
-          </a>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185&couponCode=JUN2026" onclick="gtag('event','click_blog_cta',{page:'playwright-api'})">Ver Curso no Udemy</a>
         </div>
       </div>
     </article>
   </div>
 
   <footer class="footer">
-    <p>© 2025 CodeUp · <a href="../index.html">Voltar ao início</a> · <a href="index.html">Blog</a></p>
+    <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
   </footer>
-
-  <script>
-    const container = document.createElement("div");
-    container.className = "particles";
-    document.body.prepend(container);
-    for(let i=0;i<200;i++){
-      const p=document.createElement("div");
-      p.className="particle";
-      const size=2+Math.random()*4;
-      p.style.width=size+"px"; p.style.height=size+"px";
-      p.style.left=Math.random()*100+"vw";
-      p.style.top=Math.random()*100+"vh";
-      p.style.opacity=0.3+Math.random()*0.7;
-      p.style.animationDuration=(4+Math.random()*14)+"s";
-      container.appendChild(p);
-    }
-  </script>
-
 </body>
 </html>

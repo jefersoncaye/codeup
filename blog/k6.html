@@ -3,127 +3,65 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>k6: o que é e como usar para testes de performance | CodeUp</title>
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236c63ff'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
-
-  <meta name="description" content="Conheça o k6, a ferramenta open-source do Grafana Labs para testes de carga e performance. Aprenda seus benefícios, tipos de teste e por que é tão recomendada para times DevOps.">
-  <meta name="keywords" content="k6 testes de performance, k6 load testing, k6 grafana labs, testes de carga k6, k6 javascript, k6 curso português">
+  <title>k6: testes de carga e performance com JavaScript | CodeUp</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d6a4f'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
+  <meta name="description" content="Guia completo do k6 para testes de carga e performance: o que é, como funciona, por que o Grafana Labs o mantém e quando usar load, stress e spike tests.">
+  <meta name="keywords" content="k6 testes de performance, k6 load testing, k6 Grafana Labs, testes de carga k6, k6 JavaScript, performance testing k6, stress test k6">
   <meta name="author" content="CodeUp">
   <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/k6.html">
-
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/k6.html">
-  <meta property="og:title" content="k6: o que é e como usar para testes de performance | CodeUp">
-  <meta property="og:description" content="Conheça o k6, a ferramenta open-source do Grafana Labs para testes de carga e performance. Benefícios, tipos de teste e integração com CI/CD.">
+  <meta property="og:title" content="k6: testes de carga e performance com JavaScript | CodeUp">
+  <meta property="og:description" content="Guia completo do k6 para testes de carga, stress e spike: o que é, benefícios, integração com CI/CD e quem mantém a ferramenta.">
   <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-k6.png">
   <meta property="og:locale" content="pt_BR">
-
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "k6: o que é e como usar para testes de performance",
-    "description": "Conheça o k6, a ferramenta open-source do Grafana Labs para testes de carga, stress e performance — simples, poderosa e integrada ao CI/CD.",
-    "url": "https://jefersoncaye.github.io/codeup/blog/k6.html",
-    "inLanguage": "pt-BR",
-    "author": { "@type": "Person", "name": "Jeferson Caye" },
-    "publisher": { "@type": "Organization", "name": "CodeUp" }
-  }
+  {"@context":"https://schema.org","@type":"Article","headline":"k6: testes de carga e performance com JavaScript","url":"https://jefersoncaye.github.io/codeup/blog/k6.html","inLanguage":"pt-BR","author":{"@type":"Person","name":"Jeferson Caye"},"publisher":{"@type":"Organization","name":"CodeUp"}}
   </script>
-
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-TBV8MW7SG6');
-  </script>
-
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TBV8MW7SG6');</script>
   <style>
-    :root {
-      --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
-      --brand:#6c63ff; --accent:#89b4fa; --line:#1a2342;
-    }
-    body {
-      margin:0; font-family:Inter,system-ui,Arial;
-      color:var(--ink); background:var(--bg); line-height:1.6; padding-top:70px;
-    }
-    .navbar {
-      position:fixed; top:0; left:0; right:0; height:70px;
-      display:flex; justify-content:space-between; align-items:center;
-      background:var(--panel); border-bottom:1px solid var(--line);
-      padding:0 32px; z-index:1000;
-    }
-    .navbar strong a { font-size:22px; color:var(--ink); font-weight:700; text-decoration:none; letter-spacing:0.5px; }
-    .navbar div { display:flex; gap:28px; }
-    .navbar a {
-      color:var(--muted); text-decoration:none; font-size:16px;
-      font-weight:500; padding:6px 4px; transition:.25s ease;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#f7f5f0; --bg2:#efece4; --ink:#1a1714; --muted:#7a7469; --accent:#2d6a4f; --accent2:#52b788; --line:#ddd9d0; }
+    body { font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--ink); line-height:1.6; padding-top:64px; }
+    .navbar { position:fixed; top:0; left:0; right:0; height:64px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); border-bottom:1px solid var(--line); padding:0 40px; z-index:1000; }
+    .navbar strong a { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:var(--ink); text-decoration:none; }
+    .navbar .nav-links { display:flex; gap:28px; }
+    .navbar a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s; }
     .navbar a:hover { color:var(--ink); }
-    .navbar a.active { color:var(--brand); }
-    @media(max-width:600px) { .navbar div { gap:16px; } .navbar a { font-size:14px; } }
-    .particles { position:fixed; inset:0; z-index:-1; pointer-events:none; }
-    .particle {
-      position:absolute; width:4px; height:4px;
-      background:#ffffff22; border-radius:50%; animation:rise linear infinite;
-    }
-    @keyframes rise {
-      from { transform:translateY(0); opacity:1; }
-      to { transform:translateY(-120vh); opacity:0; }
-    }
-    .wrap { max-width:1150px; margin:auto; padding:32px; }
-    .breadcrumb { max-width:760px; margin:0 auto 24px; font-size:13px; color:var(--muted); }
+    .navbar a.active { color:var(--accent); }
+    @media(max-width:600px) { .navbar { padding:0 20px; } .navbar .nav-links { gap:14px; } .navbar a { font-size:13px; } }
+    .wrap { max-width:1100px; margin:0 auto; padding:32px 40px 64px; }
+    @media(max-width:600px) { .wrap { padding:24px 20px 48px; } }
+    .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:28px; }
     .breadcrumb a { color:var(--muted); text-decoration:none; }
-    .breadcrumb a:hover { color:var(--brand); }
+    .breadcrumb a:hover { color:var(--accent); }
     .breadcrumb span { margin:0 6px; opacity:.5; }
-    .article { max-width:760px; margin:0 auto; }
-    .article-tag {
-      display:inline-block; font-size:11px; font-weight:700;
-      text-transform:uppercase; letter-spacing:0.6px;
-      background:rgba(108,99,255,.15); color:var(--brand);
-      padding:4px 10px; border-radius:20px; margin-bottom:16px;
-    }
-    .article h1 { font-size:36px; margin:0 0 10px; line-height:1.25; }
-    .article-meta { color:var(--muted); font-size:13px; margin-bottom:36px; padding-bottom:24px; border-bottom:1px solid var(--line); }
-    .article h2 { font-size:22px; color:var(--brand); margin:40px 0 12px; }
-    .article p { color:var(--muted); margin:0 0 16px; }
-    .article ul { color:var(--muted); padding-left:20px; margin:0 0 16px; }
+    .article { max-width:760px; }
+    .article-tag { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; background:rgba(45,106,79,.1); color:var(--accent); padding:3px 9px; border-radius:4px; margin-bottom:14px; }
+    .article h1 { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-1.5px; line-height:1.2; margin-bottom:8px; }
+    .article-meta { color:var(--muted); font-size:13px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:32px; }
+    .article h2 { font-size:20px; font-weight:800; color:var(--accent); margin:36px 0 10px; }
+    .article p { color:var(--muted); margin:0 0 14px; }
+    .article ul { color:var(--muted); padding-left:20px; margin:0 0 14px; }
     .article ul li { margin-bottom:6px; }
     .article strong { color:var(--ink); }
-    .cta-box {
-      display:flex; gap:24px; align-items:center;
-      background:var(--panel); border:1px solid var(--brand);
-      border-radius:16px; padding:24px; margin-top:52px;
-    }
-    .cta-box img { width:160px; border-radius:10px; flex-shrink:0; }
-    .cta-box-text h3 { font-size:20px; margin:0 0 8px; color:var(--ink); }
-    .cta-box-text p { color:var(--muted); font-size:14px; margin:0 0 16px; }
-    .btn {
-      display:inline-block; padding:12px 22px; border-radius:12px;
-      background:linear-gradient(135deg,var(--brand),#4c4aff);
-      color:#0d1220; font-weight:600; font-size:15px; text-decoration:none;
-    }
-    .btn:hover { opacity:.88; }
-    @media(max-width:600px) {
-      .cta-box { flex-direction:column; }
-      .cta-box img { width:100%; }
-      .article h1 { font-size:28px; }
-    }
-    .footer {
-      text-align:center; padding:30px; color:var(--muted);
-      font-size:14px; border-top:1px solid var(--line); margin-top:60px;
-    }
-    .footer a { color:var(--muted); }
+    .cta-box { display:flex; gap:22px; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:22px; margin-top:40px; }
+    .cta-box img { width:150px; border-radius:8px; flex-shrink:0; }
+    .cta-box-text h3 { font-size:18px; font-weight:800; color:var(--ink); margin:0 0 6px; }
+    .cta-box-text p { color:var(--muted); font-size:13px; margin:0 0 14px; }
+    .btn { display:inline-block; padding:11px 20px; border-radius:8px; background:var(--accent); color:#fff; font-weight:600; font-size:14px; text-decoration:none; transition:opacity .2s; }
+    .btn:hover { opacity:.85; }
+    @media(max-width:600px) { .cta-box { flex-direction:column; } .cta-box img { width:100%; } }
+    .footer { text-align:center; padding:20px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
+    .footer a { color:var(--muted); text-decoration:none; }
+    .footer a:hover { color:var(--ink); }
   </style>
 </head>
 <body>
-
   <nav class="navbar">
     <strong><a href="../index.html">CodeUp</a></strong>
-    <div>
+    <div class="nav-links">
       <a href="../index.html#cursos">Cursos</a>
       <a href="../index.html#consultorias">Consultorias</a>
       <a href="../index.html#sobre">Sobre</a>
@@ -133,11 +71,9 @@
 
   <div class="wrap">
     <nav class="breadcrumb">
-      <a href="../index.html">CodeUp</a>
-      <span>›</span>
-      <a href="index.html">Blog</a>
-      <span>›</span>
-      k6 testes de performance
+      <a href="../index.html">CodeUp</a><span>›</span>
+      <a href="index.html">Blog</a><span>›</span>
+      k6
     </nav>
 
     <article class="article">
@@ -146,93 +82,57 @@
       <div class="article-meta">Por Jeferson Caye · CodeUp</div>
 
       <h2>O que é o k6?</h2>
-      <p>
-        O <strong>k6</strong> é uma ferramenta open-source de testes de carga e performance desenvolvida pela <strong>Grafana Labs</strong>.
-        Ele permite simular centenas ou milhares de usuários virtuais acessando sua aplicação simultaneamente — e medir
-        como ela se comporta sob pressão.
-      </p>
-      <p>
-        Os scripts do k6 são escritos em <strong>JavaScript</strong>, mas o motor de execução é escrito em Go,
-        o que garante altíssima eficiência: você consegue simular muito mais usuários com muito menos hardware
-        do que ferramentas tradicionais como JMeter.
-      </p>
+      <p>O <strong>k6</strong> é uma ferramenta open-source de testes de carga e performance desenvolvida originalmente pela empresa Load Impact e atualmente mantida pelo <strong>Grafana Labs</strong>. É escrito em Go (alto desempenho) e usa <strong>JavaScript</strong> para a escrita dos scripts de teste, tornando a curva de aprendizado muito menor que alternativas como JMeter ou Gatling.</p>
+      <p>Com o k6 você consegue simular centenas ou milhares de usuários simultâneos acessando sua API ou serviço, identificar gargalos antes que cheguem à produção e integrar testes de performance no pipeline de CI/CD.</p>
 
       <h2>Por que o k6 é recomendado para testes de performance?</h2>
-      <p>
-        O k6 ganhou adoção rápida porque resolve os principais problemas das ferramentas anteriores:
-      </p>
+      <p>Enquanto ferramentas como JMeter exigem uma interface gráfica pesada e arquivos XML de configuração, o k6 usa JavaScript simples: você escreve um script, roda no terminal e recebe os resultados. Isso facilita revisar os testes em code review e versionar junto com o código da aplicação.</p>
+      <p>Além disso, o k6 foi projetado para ser executado em pipelines CI/CD, exportando métricas diretamente para o Grafana, InfluxDB ou Prometheus.</p>
+
+      <h2>Tipos de testes suportados pelo k6</h2>
       <ul>
-        <li><strong>Sintaxe JavaScript moderna:</strong> scripts legíveis, versionáveis no Git e fáceis de manter.</li>
-        <li><strong>Execução leve:</strong> simula milhares de usuários virtuais com baixo consumo de memória e CPU.</li>
-        <li><strong>CI/CD first:</strong> feito para rodar em pipelines — GitHub Actions, Jenkins, GitLab CI, CircleCI.</li>
-        <li><strong>Integração nativa com Grafana e Prometheus:</strong> dashboards em tempo real sem configuração complexa.</li>
-        <li><strong>Grafana Cloud k6:</strong> execute testes na nuvem sem precisar de infraestrutura local.</li>
+        <li><strong>Load test:</strong> simula o volume esperado de usuários para verificar o comportamento normal do sistema.</li>
+        <li><strong>Stress test:</strong> aumenta gradualmente a carga até encontrar o limite da aplicação.</li>
+        <li><strong>Spike test:</strong> injeta um pico repentino de usuários para testar a resiliência do sistema.</li>
+        <li><strong>Soak test:</strong> mantém carga moderada por longos períodos para detectar vazamentos de memória e degradação.</li>
+        <li><strong>Smoke test:</strong> execução rápida com poucos usuários para validar que o ambiente está funcionando.</li>
       </ul>
 
       <h2>Principais benefícios do k6</h2>
       <ul>
-        <li><strong>Tipos de teste variados:</strong> smoke (verificação rápida), load (carga normal), stress (limite máximo), spike (pico repentino) e soak (duração prolongada).</li>
-        <li><strong>Thresholds:</strong> defina critérios de aceite como "95% das requisições devem responder em menos de 200ms" — e o teste falha automaticamente se não atender.</li>
-        <li><strong>k6 Browser:</strong> módulo experimental para testes de UI sob carga real no browser.</li>
-        <li><strong>Extensões da comunidade:</strong> protocolos adicionais como gRPC, WebSockets, Kafka e MQTT.</li>
-        <li><strong>Relatórios e métricas detalhadas:</strong> latência por percentil, taxa de erros, throughput e muito mais.</li>
-        <li><strong>Open-source e gratuito:</strong> núcleo completamente livre, com opção cloud paga para execução distribuída.</li>
+        <li><strong>Scripts em JavaScript:</strong> fácil de escrever, revisar e versionar com o resto do código.</li>
+        <li><strong>Alta performance:</strong> o runtime em Go permite simular muitos usuários virtuais com consumo baixo de memória.</li>
+        <li><strong>Integração nativa com CI/CD:</strong> GitHub Actions, GitLab CI, Jenkins, CircleCI e outros.</li>
+        <li><strong>Métricas ricas:</strong> tempo de resposta (p90, p95, p99), taxa de erros, throughput e mais.</li>
+        <li><strong>Thresholds:</strong> defina critérios de aprovação ou reprovação diretamente no script.</li>
+        <li><strong>Grafana integrado:</strong> visualize resultados em tempo real em dashboards prontos.</li>
+        <li><strong>Extensions:</strong> ecossistema de plugins para protocolos adicionais (gRPC, WebSocket, etc.).</li>
       </ul>
 
       <h2>Por quem o k6 é mantido?</h2>
-      <p>
-        O k6 foi criado pela startup sueca Load Impact e, em 2021, foi adquirido pela <strong>Grafana Labs</strong> —
-        a empresa por trás do popular Grafana, Loki e Tempo. O projeto é open-source no GitHub com mais de 25 mil estrelas
-        e recebe atualizações frequentes.
-      </p>
-      <p>
-        A aquisição pela Grafana Labs garantiu mais recursos, integração nativa com o ecossistema Grafana e
-        crescimento acelerado da ferramenta no mercado de observabilidade e performance.
-      </p>
+      <p>O k6 é um projeto open-source mantido pelo <strong>Grafana Labs</strong>, empresa conhecida pelo Grafana (dashboards), Loki (logs) e Tempo (rastreamento). O projeto tem mais de 24 mil estrelas no GitHub e uma comunidade ativa. O Grafana Labs também oferece o <strong>Grafana Cloud k6</strong>, versão gerenciada para quem precisa de escala maior.</p>
 
       <h2>Para quem o k6 é ideal?</h2>
       <ul>
-        <li>DevOps e QAs que precisam validar a performance de APIs e serviços web antes de cada deploy.</li>
-        <li>Times com cultura DevOps que querem performance testing integrado ao pipeline de CI/CD.</li>
-        <li>Profissionais que querem migrar de ferramentas pesadas como JMeter ou Gatling para algo mais moderno.</li>
-        <li>Engenheiros que precisam de dashboards em tempo real durante a execução dos testes.</li>
-        <li>Times que trabalham com SLAs e precisam comprovar que os requisitos de performance foram atendidos.</li>
+        <li>QAs e devs que querem integrar testes de performance no pipeline CI/CD sem ferramentas complexas.</li>
+        <li>Times que já usam JavaScript e querem evitar a curva de aprendizado do JMeter.</li>
+        <li>Equipes que precisam validar performance de APIs REST antes de cada deploy.</li>
+        <li>Profissionais que querem aprender performance testing com uma ferramenta moderna e open-source.</li>
       </ul>
 
       <div class="cta-box">
         <img src="../imagens/curso-k6.png" alt="Curso Testes de Performance com k6">
         <div class="cta-box-text">
-          <h3>Domine testes de performance com k6</h3>
-          <p>O curso cobre todos os tipos de teste, dashboards no Grafana Cloud, browser testing e execução em CI/CD — em português.</p>
-          <a class="btn" target="_blank" href="https://www.udemy.com/course/domine-testes-de-performance-com-k6/?referralCode=92EA17EA768BDC8524E9&couponCode=JUN2026"
-             onclick="gtag('event','click_blog_cta',{page:'k6'})">
-            Ver Curso no Udemy →
-          </a>
+          <h3>Testes de Performance com k6</h3>
+          <p>Aprenda a criar testes de carga, stress e spike com k6, integrar ao CI/CD e visualizar métricas no Grafana.</p>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/testes-de-performance-com-k6/?referralCode=EFB4E0E8095E1A7CF1B8&couponCode=JUN2026" onclick="gtag('event','click_blog_cta',{page:'k6'})">Ver Curso no Udemy</a>
         </div>
       </div>
     </article>
   </div>
 
   <footer class="footer">
-    <p>© 2025 CodeUp · <a href="../index.html">Voltar ao início</a> · <a href="index.html">Blog</a></p>
+    <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
   </footer>
-
-  <script>
-    const container = document.createElement("div");
-    container.className = "particles";
-    document.body.prepend(container);
-    for(let i=0;i<200;i++){
-      const p=document.createElement("div");
-      p.className="particle";
-      const size=2+Math.random()*4;
-      p.style.width=size+"px"; p.style.height=size+"px";
-      p.style.left=Math.random()*100+"vw";
-      p.style.top=Math.random()*100+"vh";
-      p.style.opacity=0.3+Math.random()*0.7;
-      p.style.animationDuration=(4+Math.random()*14)+"s";
-      container.appendChild(p);
-    }
-  </script>
-
 </body>
 </html>
