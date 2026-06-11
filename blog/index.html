@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog de Automação de Testes | CodeUp</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236c63ff'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
+
+  <meta name="description" content="Artigos sobre automação de testes: Playwright, k6, Maestro, TestComplete e Python para QAs. Guias completos em português.">
+  <meta name="author" content="CodeUp">
+  <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/">
+  <meta property="og:title" content="Blog de Automação de Testes | CodeUp">
+  <meta property="og:description" content="Artigos sobre automação de testes: Playwright, k6, Maestro, TestComplete e Python para QAs. Guias completos em português.">
+  <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-playwright-web.png">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TBV8MW7SG6');
+  </script>
+
+  <style>
+    :root {
+      --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
+      --brand:#6c63ff; --accent:#89b4fa; --line:#1a2342;
+    }
+    body {
+      margin:0;
+      font-family:Inter,system-ui,Arial;
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.6;
+      padding-top:70px;
+    }
+    .navbar {
+      position:fixed; top:0; left:0; right:0; height:70px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:var(--panel); border-bottom:1px solid var(--line);
+      padding:0 32px; z-index:1000;
+    }
+    .navbar strong { font-size:22px; color:var(--ink); font-weight:700; letter-spacing:0.5px; }
+    .navbar strong a { color:var(--ink); text-decoration:none; }
+    .navbar div { display:flex; gap:28px; }
+    .navbar a {
+      color:var(--muted); text-decoration:none; font-size:16px;
+      font-weight:500; padding:6px 4px; transition:.25s ease;
+    }
+    .navbar a:hover { color:var(--ink); }
+    .navbar a.active { color:var(--brand); }
+    @media(max-width:600px) {
+      .navbar strong { font-size:20px; }
+      .navbar div { gap:18px; }
+      .navbar a { font-size:15px; }
+    }
+    .particles { position:fixed; inset:0; z-index:-1; pointer-events:none; }
+    .particle {
+      position:absolute; width:4px; height:4px;
+      background:#ffffff22; border-radius:50%; animation:rise linear infinite;
+    }
+    @keyframes rise {
+      from { transform:translateY(0); opacity:1; }
+      to { transform:translateY(-120vh); opacity:0; }
+    }
+    .wrap { max-width:1150px; margin:auto; padding:32px; }
+    .page-hero {
+      text-align:center; padding:60px 25px 40px;
+    }
+    .page-hero h1 { font-size:38px; margin:0 0 12px; }
+    .page-hero p { color:var(--muted); font-size:18px; max-width:600px; margin:0 auto; }
+    .blog-grid {
+      display:grid; gap:24px;
+      grid-template-columns:repeat(3,1fr);
+      margin-top:48px;
+    }
+    @media(max-width:900px) { .blog-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:600px) { .blog-grid { grid-template-columns:1fr; } }
+    .blog-card {
+      border:1px solid var(--line); border-radius:16px;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+      padding:24px; display:flex; flex-direction:column;
+      transition:transform .25s ease, box-shadow .25s ease;
+      text-decoration:none; color:inherit;
+    }
+    .blog-card:hover {
+      transform:translateY(-4px);
+      box-shadow:0 16px 36px rgba(108,99,255,.2);
+    }
+    .blog-card .tag {
+      display:inline-block; font-size:11px; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.6px;
+      background:rgba(108,99,255,.15); color:var(--brand);
+      padding:4px 10px; border-radius:20px; margin-bottom:14px;
+      width:fit-content;
+    }
+    .blog-card h2 { font-size:19px; color:var(--ink); margin:0 0 10px; }
+    .blog-card p { flex:1; color:var(--muted); font-size:14px; margin:0 0 18px; }
+    .blog-card .read-link {
+      color:var(--brand); font-size:14px; font-weight:600;
+      display:inline-flex; align-items:center; gap:4px;
+    }
+    .footer {
+      text-align:center; padding:30px; color:var(--muted);
+      font-size:14px; border-top:1px solid var(--line); margin-top:60px;
+    }
+    .footer a { color:var(--muted); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <strong><a href="../index.html">CodeUp</a></strong>
+    <div>
+      <a href="../index.html#cursos">Cursos</a>
+      <a href="../index.html#consultorias">Consultorias</a>
+      <a href="../index.html#sobre">Sobre</a>
+      <a href="index.html" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Artigos sobre Automação de Testes</h1>
+    <p>Guias completos sobre as ferramentas que o mercado exige, escritos em português.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="blog-grid">
+
+      <a class="blog-card" href="playwright-python.html">
+        <span class="tag">Automação Web</span>
+        <h2>Playwright com Python: guia completo</h2>
+        <p>O que é Playwright, por que combiná-lo com Python e Pytest é a melhor escolha para automação web e quais os principais benefícios.</p>
+        <span class="read-link">Ler artigo →</span>
+      </a>
+
+      <a class="blog-card" href="playwright-api.html">
+        <span class="tag">Testes de API</span>
+        <h2>Testes de API com Playwright e Python</h2>
+        <p>Como usar o módulo APIRequestContext do Playwright para testar endpoints REST com Python, sem precisar de bibliotecas extras.</p>
+        <span class="read-link">Ler artigo →</span>
+      </a>
+
+      <a class="blog-card" href="python-para-qas.html">
+        <span class="tag">Fundamentos</span>
+        <h2>Python para QA: por que aprender e como começar</h2>
+        <p>Por que Python é a linguagem mais recomendada para QAs e testers, e o que você precisa aprender para dominar automação de testes.</p>
+        <span class="read-link">Ler artigo →</span>
+      </a>
+
+      <a class="blog-card" href="testcomplete.html">
+        <span class="tag">Desktop & Web</span>
+        <h2>TestComplete: automação de testes desktop e web</h2>
+        <p>Conheça o TestComplete da SmartBear, seus benefícios para automação de aplicações desktop legadas e por que é líder nesse segmento.</p>
+        <span class="read-link">Ler artigo →</span>
+      </a>
+
+      <a class="blog-card" href="k6.html">
+        <span class="tag">Performance</span>
+        <h2>k6: testes de carga e performance modernos</h2>
+        <p>Descubra o k6, a ferramenta open-source do Grafana Labs para testes de load, stress e spike — simples, poderosa e integrada ao CI/CD.</p>
+        <span class="read-link">Ler artigo →</span>
+      </a>
+
+      <a class="blog-card" href="maestro.html">
+        <span class="tag">Mobile</span>
+        <h2>Maestro: testes mobile Android simples e rápidos</h2>
+        <p>Como o Maestro torna a automação mobile acessível com YAML declarativo, Maestro Studio visual e pipeline com GitHub Actions.</p>
+        <span class="read-link">Ler artigo →</span>
+      </a>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 CodeUp · <a href="../index.html">Voltar ao início</a></p>
+  </footer>
+
+  <script>
+    const container = document.createElement("div");
+    container.className = "particles";
+    document.body.prepend(container);
+    for(let i=0;i<200;i++){
+      const p=document.createElement("div");
+      p.className="particle";
+      const size=2+Math.random()*4;
+      p.style.width=size+"px"; p.style.height=size+"px";
+      p.style.left=Math.random()*100+"vw";
+      p.style.top=Math.random()*100+"vh";
+      p.style.opacity=0.3+Math.random()*0.7;
+      p.style.animationDuration=(4+Math.random()*14)+"s";
+      container.appendChild(p);
+    }
+  </script>
+
+</body>
+</html>

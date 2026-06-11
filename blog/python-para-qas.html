@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Python para QA: por que aprender e como começar | CodeUp</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236c63ff'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
+
+  <meta name="description" content="Descubra por que Python é a linguagem mais recomendada para QAs e testers, seus benefícios para automação de testes e o que você precisa aprender para começar.">
+  <meta name="keywords" content="python para QA, python para testers, aprender python automação de testes, python qualidade de software, python para iniciantes QA">
+  <meta name="author" content="CodeUp">
+  <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/python-para-qas.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/python-para-qas.html">
+  <meta property="og:title" content="Python para QA: por que aprender e como começar | CodeUp">
+  <meta property="og:description" content="Descubra por que Python é a linguagem mais recomendada para QAs, seus benefícios e o que aprender para dominar automação de testes.">
+  <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-python-qa.png">
+  <meta property="og:locale" content="pt_BR">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Python para QA: por que aprender e como começar",
+    "description": "Por que Python é a linguagem mais recomendada para QAs e o que aprender para dominar automação de testes.",
+    "url": "https://jefersoncaye.github.io/codeup/blog/python-para-qas.html",
+    "inLanguage": "pt-BR",
+    "author": { "@type": "Person", "name": "Jeferson Caye" },
+    "publisher": { "@type": "Organization", "name": "CodeUp" }
+  }
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TBV8MW7SG6');
+  </script>
+
+  <style>
+    :root {
+      --bg:#0b1020; --panel:#10162a; --ink:#e6e8ef; --muted:#a9b1c7;
+      --brand:#6c63ff; --accent:#89b4fa; --line:#1a2342;
+    }
+    body {
+      margin:0; font-family:Inter,system-ui,Arial;
+      color:var(--ink); background:var(--bg); line-height:1.6; padding-top:70px;
+    }
+    .navbar {
+      position:fixed; top:0; left:0; right:0; height:70px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:var(--panel); border-bottom:1px solid var(--line);
+      padding:0 32px; z-index:1000;
+    }
+    .navbar strong a { font-size:22px; color:var(--ink); font-weight:700; text-decoration:none; letter-spacing:0.5px; }
+    .navbar div { display:flex; gap:28px; }
+    .navbar a {
+      color:var(--muted); text-decoration:none; font-size:16px;
+      font-weight:500; padding:6px 4px; transition:.25s ease;
+    }
+    .navbar a:hover { color:var(--ink); }
+    .navbar a.active { color:var(--brand); }
+    @media(max-width:600px) { .navbar div { gap:16px; } .navbar a { font-size:14px; } }
+    .particles { position:fixed; inset:0; z-index:-1; pointer-events:none; }
+    .particle {
+      position:absolute; width:4px; height:4px;
+      background:#ffffff22; border-radius:50%; animation:rise linear infinite;
+    }
+    @keyframes rise {
+      from { transform:translateY(0); opacity:1; }
+      to { transform:translateY(-120vh); opacity:0; }
+    }
+    .wrap { max-width:1150px; margin:auto; padding:32px; }
+    .breadcrumb { max-width:760px; margin:0 auto 24px; font-size:13px; color:var(--muted); }
+    .breadcrumb a { color:var(--muted); text-decoration:none; }
+    .breadcrumb a:hover { color:var(--brand); }
+    .breadcrumb span { margin:0 6px; opacity:.5; }
+    .article { max-width:760px; margin:0 auto; }
+    .article-tag {
+      display:inline-block; font-size:11px; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.6px;
+      background:rgba(108,99,255,.15); color:var(--brand);
+      padding:4px 10px; border-radius:20px; margin-bottom:16px;
+    }
+    .article h1 { font-size:36px; margin:0 0 10px; line-height:1.25; }
+    .article-meta { color:var(--muted); font-size:13px; margin-bottom:36px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+    .article h2 { font-size:22px; color:var(--brand); margin:40px 0 12px; }
+    .article p { color:var(--muted); margin:0 0 16px; }
+    .article ul { color:var(--muted); padding-left:20px; margin:0 0 16px; }
+    .article ul li { margin-bottom:6px; }
+    .article strong { color:var(--ink); }
+    .cta-box {
+      display:flex; gap:24px; align-items:center;
+      background:var(--panel); border:1px solid var(--brand);
+      border-radius:16px; padding:24px; margin-top:52px;
+    }
+    .cta-box img { width:160px; border-radius:10px; flex-shrink:0; }
+    .cta-box-text h3 { font-size:20px; margin:0 0 8px; color:var(--ink); }
+    .cta-box-text p { color:var(--muted); font-size:14px; margin:0 0 16px; }
+    .btn {
+      display:inline-block; padding:12px 22px; border-radius:12px;
+      background:linear-gradient(135deg,var(--brand),#4c4aff);
+      color:#0d1220; font-weight:600; font-size:15px; text-decoration:none;
+    }
+    .btn:hover { opacity:.88; }
+    @media(max-width:600px) {
+      .cta-box { flex-direction:column; }
+      .cta-box img { width:100%; }
+      .article h1 { font-size:28px; }
+    }
+    .footer {
+      text-align:center; padding:30px; color:var(--muted);
+      font-size:14px; border-top:1px solid var(--line); margin-top:60px;
+    }
+    .footer a { color:var(--muted); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <strong><a href="../index.html">CodeUp</a></strong>
+    <div>
+      <a href="../index.html#cursos">Cursos</a>
+      <a href="../index.html#consultorias">Consultorias</a>
+      <a href="../index.html#sobre">Sobre</a>
+      <a href="index.html" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <nav class="breadcrumb">
+      <a href="../index.html">CodeUp</a>
+      <span>›</span>
+      <a href="index.html">Blog</a>
+      <span>›</span>
+      Python para QA
+    </nav>
+
+    <article class="article">
+      <span class="article-tag">Fundamentos</span>
+      <h1>Python para QA: por que aprender e como começar</h1>
+      <div class="article-meta">Por Jeferson Caye · CodeUp</div>
+
+      <h2>Por que QAs devem aprender Python?</h2>
+      <p>
+        Python se tornou a <strong>linguagem padrão de automação de testes</strong> no mercado. Quase todos os frameworks modernos
+        — Playwright, Pytest, Robot Framework, Selenium — têm suporte de primeira classe para Python.
+        E não é por acaso: Python tem uma curva de aprendizado gentil, sintaxe clara e uma comunidade enorme.
+      </p>
+      <p>
+        Para QAs que ainda não programam, Python é a porta de entrada ideal. Você não precisa de anos de experiência em desenvolvimento
+        para escrever testes sólidos e automatizados. Com algumas semanas de dedicação, já consegue criar scripts funcionais
+        para projetos reais.
+      </p>
+
+      <h2>Benefícios do Python para automação de testes</h2>
+      <ul>
+        <li><strong>Legibilidade:</strong> código Python é quase como inglês — fácil de escrever, revisar e manter.</li>
+        <li><strong>Ecossistema enorme:</strong> Pytest, Playwright, Requests, Faker, Allure, Robot Framework e muito mais.</li>
+        <li><strong>Integração fácil com CI/CD:</strong> GitHub Actions, Jenkins e GitLab CI têm suporte nativo a projetos Python.</li>
+        <li><strong>Comunidade ativa:</strong> muita documentação, fóruns, tutoriais — inclusive em português.</li>
+        <li><strong>Versatilidade:</strong> além de testes, Python é usado em dados, automação de processos e scripts de DevOps.</li>
+        <li><strong>Adoção pelo mercado:</strong> a maioria das vagas de QA Automation hoje exige Python ou JavaScript — e Python costuma ser a preferência.</li>
+      </ul>
+
+      <h2>O que você precisa aprender em Python para QA?</h2>
+      <p>
+        Você não precisa virar um desenvolvedor Python para trabalhar com automação de testes. O essencial é:
+      </p>
+      <ul>
+        <li><strong>Fundamentos:</strong> variáveis, tipos de dados (string, int, list, dict), condicionais e loops.</li>
+        <li><strong>Funções e módulos:</strong> como organizar e reutilizar código.</li>
+        <li><strong>Manipulação de dados:</strong> listas, dicionários, JSON — usados em praticamente todo projeto de testes.</li>
+        <li><strong>Leitura e escrita de arquivos:</strong> CSV, JSON e fixtures de dados de teste.</li>
+        <li><strong>Orientação a objetos básica:</strong> classes e herança, necessários para o padrão Page Object Model (POM).</li>
+        <li><strong>Tratamento de exceções:</strong> como lidar com erros de forma controlada nos testes.</li>
+      </ul>
+      <p>
+        Com esses fundamentos, você já consegue trabalhar com Playwright, Pytest e praticamente qualquer framework de automação do mercado.
+      </p>
+
+      <h2>Python é mantido pela Python Software Foundation</h2>
+      <p>
+        Python é um projeto open-source mantido pela <strong>Python Software Foundation (PSF)</strong>, uma organização sem fins lucrativos.
+        É gratuito, multiplataforma (Windows, Mac, Linux) e usado por empresas como Google, Netflix, Meta, Spotify e NASA.
+        Isso significa que você está aprendendo uma linguagem com futuro garantido e demanda crescente no mercado de tecnologia.
+      </p>
+
+      <h2>Para quem Python para QA é ideal?</h2>
+      <ul>
+        <li>QAs manuais que querem dar o primeiro passo em automação de testes.</li>
+        <li>Profissionais sem background de programação que precisam aprender a lógica do zero.</li>
+        <li>Testers que querem dominar Playwright, Pytest ou Robot Framework em seguida.</li>
+        <li>Profissionais que buscam melhores oportunidades no mercado de trabalho em QA Automation.</li>
+      </ul>
+
+      <div class="cta-box">
+        <img src="../imagens/curso-python-qa.png" alt="Curso Python para QAs">
+        <div class="cta-box-text">
+          <h3>Aprenda Python do zero focado para QA</h3>
+          <p>O curso ensina lógica de programação, estruturas de dados e a base para dominar qualquer framework de testes — em português.</p>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E&couponCode=JUN2026"
+             onclick="gtag('event','click_blog_cta',{page:'python-para-qas'})">
+            Ver Curso no Udemy →
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 CodeUp · <a href="../index.html">Voltar ao início</a> · <a href="index.html">Blog</a></p>
+  </footer>
+
+  <script>
+    const container = document.createElement("div");
+    container.className = "particles";
+    document.body.prepend(container);
+    for(let i=0;i<200;i++){
+      const p=document.createElement("div");
+      p.className="particle";
+      const size=2+Math.random()*4;
+      p.style.width=size+"px"; p.style.height=size+"px";
+      p.style.left=Math.random()*100+"vw";
+      p.style.top=Math.random()*100+"vh";
+      p.style.opacity=0.3+Math.random()*0.7;
+      p.style.animationDuration=(4+Math.random()*14)+"s";
+      container.appendChild(p);
+    }
+  </script>
+
+</body>
+</html>
