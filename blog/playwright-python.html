@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Playwright com Python: guia completo de automação web | CodeUp</title>
+  <title>Playwright com Python: automação web e de API | CodeUp</title>
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236c63ff'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
 
-  <meta name="description" content="Descubra o que é Playwright, por que usar com Python e Pytest é a melhor escolha para automação web em 2025 e quais os benefícios para QAs. Guia completo em português.">
-  <meta name="keywords" content="playwright com python, automação web playwright python, playwright pytest, framework automação testes python, aprender playwright">
+  <meta name="description" content="Guia completo do Playwright com Python: automação web com Pytest e testes de API com APIRequestContext. O que é, por que usar, benefícios e quem mantém.">
+  <meta name="keywords" content="playwright com python, automação web playwright python, playwright pytest, testes de API playwright python, playwright APIRequestContext, aprender playwright">
   <meta name="author" content="CodeUp">
   <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/playwright-python.html">
 
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/playwright-python.html">
-  <meta property="og:title" content="Playwright com Python: guia completo de automação web | CodeUp">
-  <meta property="og:description" content="Descubra o que é Playwright, por que usar com Python e Pytest é a melhor escolha para automação web em 2025 e quais os benefícios para QAs.">
+  <meta property="og:title" content="Playwright com Python: automação web e de API | CodeUp">
+  <meta property="og:description" content="Guia completo do Playwright com Python: automação web com Pytest e testes de API com APIRequestContext. O que é, por que usar e benefícios.">
   <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-playwright-web.png">
   <meta property="og:locale" content="pt_BR">
 
@@ -23,8 +23,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Playwright com Python: guia completo de automação web",
-    "description": "Descubra o que é Playwright, por que usar com Python e Pytest e quais os principais benefícios para QAs.",
+    "headline": "Playwright com Python: automação web e de API",
+    "description": "Guia completo do Playwright com Python cobrindo automação web com Pytest e testes de API com APIRequestContext.",
     "url": "https://jefersoncaye.github.io/codeup/blog/playwright-python.html",
     "inLanguage": "pt-BR",
     "author": { "@type": "Person", "name": "Jeferson Caye" },
@@ -78,9 +78,7 @@
       to { transform:translateY(-120vh); opacity:0; }
     }
     .wrap { max-width:1150px; margin:auto; padding:32px; }
-    .breadcrumb {
-      max-width:760px; margin:0 auto 24px; font-size:13px; color:var(--muted);
-    }
+    .breadcrumb { max-width:760px; margin:0 auto 24px; font-size:13px; color:var(--muted); }
     .breadcrumb a { color:var(--muted); text-decoration:none; }
     .breadcrumb a:hover { color:var(--brand); }
     .breadcrumb span { margin:0 6px; opacity:.5; }
@@ -94,14 +92,19 @@
     .article h1 { font-size:36px; margin:0 0 10px; line-height:1.25; }
     .article-meta { color:var(--muted); font-size:13px; margin-bottom:36px; padding-bottom:24px; border-bottom:1px solid var(--line); }
     .article h2 { font-size:22px; color:var(--brand); margin:40px 0 12px; }
+    .article h3 { font-size:18px; color:var(--ink); margin:28px 0 10px; }
     .article p { color:var(--muted); margin:0 0 16px; }
     .article ul { color:var(--muted); padding-left:20px; margin:0 0 16px; }
     .article ul li { margin-bottom:6px; }
     .article strong { color:var(--ink); }
+    .section-divider {
+      border:none; border-top:1px solid var(--line);
+      margin:52px 0;
+    }
     .cta-box {
       display:flex; gap:24px; align-items:center;
       background:var(--panel); border:1px solid var(--brand);
-      border-radius:16px; padding:24px; margin-top:52px;
+      border-radius:16px; padding:24px; margin-top:28px;
     }
     .cta-box img { width:160px; border-radius:10px; flex-shrink:0; }
     .cta-box-text h3 { font-size:20px; margin:0 0 8px; color:var(--ink); }
@@ -146,71 +149,109 @@
     </nav>
 
     <article class="article">
-      <span class="article-tag">Automação Web</span>
-      <h1>Playwright com Python: guia completo de automação web</h1>
+      <span class="article-tag">Automação Web &amp; API</span>
+      <h1>Playwright com Python: guia completo de automação web e de API</h1>
       <div class="article-meta">Por Jeferson Caye · CodeUp</div>
 
       <h2>O que é o Playwright?</h2>
       <p>
-        O <strong>Playwright</strong> é um framework open-source de automação web criado e mantido pela <strong>Microsoft</strong>.
-        Lançado em 2020, cresceu rapidamente para se tornar uma das ferramentas mais adotadas por times de QA em todo o mundo —
-        e com razão: ele resolve problemas clássicos do Selenium com uma API moderna, confiável e com muito menos código.
+        O <strong>Playwright</strong> é um framework open-source de automação criado e mantido pela <strong>Microsoft</strong>.
+        Lançado em 2020, cresceu rapidamente para se tornar uma das ferramentas mais adotadas por times de QA —
+        e com razão: ele resolve os problemas clássicos do Selenium com uma API moderna, confiável e com muito menos código.
       </p>
       <p>
-        Com o Playwright você consegue automatizar o <strong>Chromium</strong> (Chrome, Edge), <strong>Firefox</strong> e
-        <strong>WebKit</strong> (Safari) a partir de uma única API. E está disponível para Python, JavaScript/TypeScript, Java e .NET.
+        Com uma única instalação você consegue automatizar <strong>Chromium</strong> (Chrome, Edge), <strong>Firefox</strong> e
+        <strong>WebKit</strong> (Safari), além de fazer requisições HTTP diretamente — cobrindo testes de UI e de API
+        no mesmo projeto, com o mesmo framework.
       </p>
 
       <h2>Por que usar Playwright com Python?</h2>
-      <p>
-        A combinação de Playwright com Python se tornou o padrão para times de QA que querem produtividade sem abrir mão de robustez.
-        Os principais motivos são:
-      </p>
       <ul>
         <li><strong>Python é a linguagem de QA mais usada no mercado</strong> — simples, legível e com enorme comunidade.</li>
-        <li><strong>Integração nativa com Pytest</strong> — o framework de testes mais popular em Python, com suporte a fixtures, marcadores e paralelismo.</li>
+        <li><strong>Integração nativa com Pytest</strong> — fixtures, marcadores, paralelismo e relatórios sem configuração extra.</li>
         <li><strong>Menos boilerplate</strong> que Selenium com Java: você faz mais com menos código.</li>
-        <li><strong>Auto-wait nativo</strong> — o Playwright espera automaticamente os elementos estarem prontos antes de interagir, eliminando a maioria dos <code>sleep()</code>s manuais.</li>
-      </ul>
-
-      <h2>Principais benefícios do Playwright</h2>
-      <ul>
-        <li><strong>Auto-wait:</strong> aguarda elementos aparecerem, serem visíveis e clicáveis — sem precisar de esperas manuais.</li>
-        <li><strong>Execução paralela nativa:</strong> rode testes em múltiplos browsers e workers simultaneamente com poucas linhas de configuração.</li>
-        <li><strong>Playwright Codegen:</strong> grava suas ações no browser e gera o código Python automaticamente — ótimo para começar scripts rapidamente.</li>
-        <li><strong>Traces e relatórios visuais:</strong> cada execução pode gerar um trace com screenshots, vídeo e logs de rede para debugging.</li>
-        <li><strong>Page Object Model (POM):</strong> estrutura de projeto organizada, facilitada pelas fixtures do Pytest.</li>
-        <li><strong>Mock de rede:</strong> intercepte e modifique requisições HTTP diretamente nos testes, sem precisar de proxies externos.</li>
-        <li><strong>Testes de UI e API no mesmo projeto:</strong> o Playwright tem um módulo nativo de requisições HTTP.</li>
+        <li><strong>Auto-wait nativo</strong> — o Playwright espera os elementos estarem prontos automaticamente, eliminando a maioria dos <code>sleep()</code>s manuais.</li>
       </ul>
 
       <h2>Por quem o Playwright é mantido?</h2>
       <p>
-        O Playwright é um projeto open-source desenvolvido e mantido pela <strong>Microsoft</strong>.
-        O repositório oficial no GitHub acumula mais de 65 mil estrelas e recebe atualizações semanais.
-        Isso garante compatibilidade com os navegadores mais recentes e suporte contínuo à comunidade.
-      </p>
-      <p>
-        Por ser mantido por uma grande empresa de tecnologia, você tem a segurança de que o projeto não será abandonado —
-        algo que não pode ser dito de muitos frameworks alternativos.
+        O Playwright é desenvolvido e mantido pela <strong>Microsoft</strong>, com código aberto no GitHub e mais de 65 mil estrelas.
+        Recebe atualizações semanais, garantindo compatibilidade com os navegadores mais recentes e suporte contínuo à comunidade.
       </p>
 
-      <h2>Para quem o Playwright com Python é ideal?</h2>
+      <hr class="section-divider">
+
+      <h2>Automação Web com Playwright</h2>
+      <p>
+        Para testes de interface, o Playwright oferece uma das experiências mais completas do mercado.
+        Você interage com elementos da página da mesma forma que um usuário real faria — clicando, digitando,
+        navegando — mas de forma automatizada, rápida e reproduzível.
+      </p>
+
+      <h3>Principais benefícios para testes web</h3>
       <ul>
-        <li>QAs que estão migrando do Selenium e querem uma ferramenta moderna e mais confiável.</li>
-        <li>Times que usam Python como linguagem padrão de automação.</li>
-        <li>Profissionais que precisam cobrir múltiplos browsers sem configuração complexa.</li>
-        <li>Equipes que querem integrar testes em pipelines CI/CD (GitHub Actions, Jenkins, GitLab CI).</li>
-        <li>QAs que querem gerar evidências automáticas com screenshots, vídeos e traces.</li>
+        <li><strong>Auto-wait:</strong> aguarda elementos aparecerem, ficarem visíveis e clicáveis — sem esperas manuais.</li>
+        <li><strong>Execução paralela nativa:</strong> rode testes em múltiplos browsers e workers simultaneamente.</li>
+        <li><strong>Playwright Codegen:</strong> grava suas ações no browser e gera o código Python automaticamente.</li>
+        <li><strong>Traces e relatórios visuais:</strong> screenshots, vídeo e logs de rede gerados automaticamente para debugging.</li>
+        <li><strong>Page Object Model (POM):</strong> estrutura de projeto organizada e escalável, facilitada pelas fixtures do Pytest.</li>
+        <li><strong>Mock de rede:</strong> intercepte e modifique requisições HTTP diretamente nos testes.</li>
+      </ul>
+
+      <h3>Para quem é ideal?</h3>
+      <ul>
+        <li>QAs migrando do Selenium que querem uma ferramenta moderna e mais confiável.</li>
+        <li>Times que precisam cobrir múltiplos browsers sem configuração complexa.</li>
+        <li>Equipes que querem integrar testes E2E em pipelines CI/CD.</li>
       </ul>
 
       <div class="cta-box">
         <img src="../imagens/curso-playwright-web.png" alt="Curso Automação Web com Playwright, Python e Pytest">
         <div class="cta-box-text">
-          <h3>Aprenda Playwright com Python do zero ao avançado</h3>
-          <p>O curso cobre POM, fixtures, CI/CD, paralelismo e muito mais — com projetos reais e acesso vitalício na Udemy.</p>
+          <h3>Automação Web com Playwright, Python e Pytest</h3>
+          <p>Do zero ao avançado: POM, fixtures, CI/CD, paralelismo e projetos reais. Acesso vitalício na Udemy.</p>
           <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12&couponCode=JUN2026"
-             onclick="gtag('event','click_blog_cta',{page:'playwright-python'})">
+             onclick="gtag('event','click_blog_cta',{page:'playwright-web'})">
+            Ver Curso no Udemy →
+          </a>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <h2>Testes de API com Playwright</h2>
+      <p>
+        Além da automação de UI, o Playwright tem um módulo nativo chamado <strong>APIRequestContext</strong>
+        que permite fazer requisições HTTP diretamente nos testes — sem precisar de bibliotecas extras como Requests ou HTTPx.
+      </p>
+      <p>
+        O grande diferencial é usar o <strong>mesmo framework</strong> para testes web e testes de API: uma única
+        configuração de CI/CD, fixtures do Pytest compartilhadas e relatórios unificados.
+      </p>
+
+      <h3>Por que usar Playwright para testes de API?</h3>
+      <ul>
+        <li>Compartilhe autenticação entre testes de UI e API — faça login via API e reutilize o estado na interface.</li>
+        <li>Valide status code, headers e body JSON com assertions nativas do Playwright.</li>
+        <li>Execute centenas de testes de API em paralelo com Pytest.</li>
+        <li>Simule comportamentos de APIs externas com mocking de respostas.</li>
+        <li>Relatórios unificados com o HTML Reporter do Playwright.</li>
+      </ul>
+
+      <h3>Para quem é ideal?</h3>
+      <ul>
+        <li>QAs que já usam Playwright para testes web e querem cobrir a camada de API no mesmo projeto.</li>
+        <li>Times que buscam um único framework para toda a pirâmide de testes em Python.</li>
+        <li>Profissionais que precisam de execução rápida e relatórios integrados para APIs REST.</li>
+      </ul>
+
+      <div class="cta-box">
+        <img src="../imagens/curso-playwright-api.png" alt="Curso Automação de Testes de API com Playwright">
+        <div class="cta-box-text">
+          <h3>Automação de Testes de API com Playwright</h3>
+          <p>Validação avançada de JSON, execução paralela, mocking e projetos reais. Acesso vitalício na Udemy.</p>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185&couponCode=JUN2026"
+             onclick="gtag('event','click_blog_cta',{page:'playwright-api'})">
             Ver Curso no Udemy →
           </a>
         </div>
