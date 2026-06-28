@@ -132,7 +132,7 @@
       background: var(--bg);
       color: var(--ink);
       line-height: 1.6;
-      padding-top: 64px;
+      padding-top: 116px;
     }
 
     /* NAVBAR */
@@ -407,6 +407,51 @@
     .cta-final h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
     .cta-final p { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
 
+    /* COUPON BANNER */
+    .coupon-banner {
+      position: fixed; top: 64px; left: 0; right: 0;
+      height: 52px;
+      display: flex; justify-content: center; align-items: center;
+      gap: 16px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      padding: 0 40px;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .coupon-content {
+      display: flex; align-items: center; gap: 10px;
+      color: #fff; font-size: 14px; font-weight: 500;
+    }
+    .coupon-label { opacity: .95; }
+    .coupon-code {
+      background: rgba(0,0,0,.15); color: #fff;
+      padding: 4px 10px; border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-weight: 700; letter-spacing: 1px;
+    }
+    .coupon-copy-btn {
+      background: rgba(255,255,255,.25); color: #fff;
+      border: 1px solid rgba(255,255,255,.4);
+      padding: 8px 16px; border-radius: 6px;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .coupon-copy-btn:hover {
+      background: rgba(255,255,255,.35);
+      border-color: rgba(255,255,255,.6);
+    }
+    .coupon-copy-btn.copied {
+      background: rgba(0,0,0,.2);
+    }
+    @media(max-width: 700px) {
+      .coupon-banner { padding: 0 20px; flex-direction: column; height: auto; gap: 8px; }
+      .coupon-content { font-size: 13px; }
+      .coupon-label { display: none; }
+    }
+
     /* FOOTER */
     .footer {
       text-align: center; padding: 20px;
@@ -429,6 +474,14 @@
       <a href="blog/">Blog</a>
     </div>
   </nav>
+
+  <div class="coupon-banner">
+    <div class="coupon-content">
+      <span class="coupon-label">🎁 Cupom:</span>
+      <code class="coupon-code" id="coupon-code">JUN2026</code>
+    </div>
+    <button class="coupon-copy-btn" type="button">Copiar Cupom</button>
+  </div>
 
   <section class="hero">
     <h1>Domine <span>automação de testes</span> com projetos reais</h1>
@@ -458,7 +511,7 @@
             <h2>Python para QAs</h2>
             <p>Aprenda Python do zero focado para qualidade de software: lógica de programação, estruturas de dados e a base sólida para dominar qualquer framework de testes.</p>
             <div class="card-rating">★★★★★ <span>5.0</span></div>
-            <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E&couponCode=JUN2026" onclick="gtag('event','click_curso',{curso:'Python para QAs'})">Acessar Curso</a>
+            <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E" onclick="gtag('event','click_curso',{curso:'Python para QAs'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/python-para-qas.html">Saiba mais</a>
           </div>
         </div>
@@ -469,7 +522,7 @@
             <h2>Automação Web com Playwright, Python e Pytest</h2>
             <p>Aprenda do zero até o avançado com POM, fixtures, boas práticas, CI/CD e muitos exercícios práticos.</p>
             <div class="card-rating">★★★★★ <span>4.8</span></div>
-            <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12&couponCode=JUN2026" onclick="gtag('event','click_curso',{curso:'Playwright Web'})">Acessar Curso</a>
+            <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12" onclick="gtag('event','click_curso',{curso:'Playwright Web'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/playwright-python.html">Saiba mais</a>
           </div>
         </div>
@@ -480,7 +533,7 @@
             <h2>Automação de Testes de API com Playwright</h2>
             <p>Domine testes de API com Python, validação avançada de JSON, execução paralela e testes de carga.</p>
             <div class="card-rating">★★★★☆ <span>4.7</span></div>
-            <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185&couponCode=JUN2026" onclick="gtag('event','click_curso',{curso:'Playwright API'})">Acessar Curso</a>
+            <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185" onclick="gtag('event','click_curso',{curso:'Playwright API'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/playwright-python.html">Saiba mais</a>
           </div>
         </div>
@@ -491,7 +544,7 @@
             <h2>Automação Desktop/Web com TestComplete</h2>
             <p>Aprenda automação profissional com VBScript, objetos avançados e integração com Jenkins.</p>
             <div class="card-rating">★★★★★ <span>5.0</span></div>
-            <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1&couponCode=JUN2026" onclick="gtag('event','click_curso',{curso:'TestComplete'})">Acessar Curso</a>
+            <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1" onclick="gtag('event','click_curso',{curso:'TestComplete'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/testcomplete.html">Saiba mais</a>
           </div>
         </div>
@@ -502,7 +555,7 @@
             <h2>Testes de Performance com k6</h2>
             <p>Aprenda carga, estresse, smoke, browser testing, dashboards e execução no Grafana Cloud.</p>
             <div class="card-rating">★★★★★ <span>4.9</span></div>
-            <a class="btn" target="_blank" href="https://www.udemy.com/course/domine-testes-de-performance-com-k6/?referralCode=92EA17EA768BDC8524E9&couponCode=JUN2026" onclick="gtag('event','click_curso',{curso:'k6'})">Acessar Curso</a>
+            <a class="btn" target="_blank" href="https://www.udemy.com/course/domine-testes-de-performance-com-k6/?referralCode=92EA17EA768BDC8524E9" onclick="gtag('event','click_curso',{curso:'k6'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/k6.html">Saiba mais</a>
           </div>
         </div>
@@ -513,7 +566,7 @@
           <div class="card-body">
             <h2>Maestro: Testes Mobile do Zero ao Pipeline</h2>
             <p>Automatize testes mobile Android com Maestro: YAML, Maestro Studio, suite E2E real com ShopDemo, GitHub Actions e IA gerando cenários em português.</p>
-            <a class="btn" target="_blank" href="https://www.udemy.com/course/maestro-testes-mobile-do-zero-ao-pipeline/?referralCode=2E88CCA77E66DFD8ED4F&couponCode=JUN2026" onclick="gtag('event','click_curso',{curso:'Maestro Mobile'})">Acessar Curso</a>
+            <a class="btn" target="_blank" href="https://www.udemy.com/course/maestro-testes-mobile-do-zero-ao-pipeline/?referralCode=2E88CCA77E66DFD8ED4F" onclick="gtag('event','click_curso',{curso:'Maestro Mobile'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/maestro.html">Saiba mais</a>
           </div>
         </div>
@@ -610,6 +663,33 @@
   </footer>
 
   <script>
+    // Load coupon from cupom.json
+    let cupomData = { codigo: "JUN2026" };
+    fetch("cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        cupomData = data;
+        updateCouponCode(data.codigo);
+        updateCourseLinks(data.codigo);
+      })
+      .catch(() => {
+        console.log("Using default coupon code");
+        updateCourseLinks("JUN2026");
+      });
+
+    function updateCouponCode(code) {
+      document.getElementById("coupon-code").textContent = code;
+    }
+
+    function updateCourseLinks(code) {
+      document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+        const url = new URL(link.href);
+        url.searchParams.set("couponCode", code);
+        link.href = url.toString();
+      });
+    }
+
+    // Testimonials carousel
     const wrapper = document.querySelector(".depo-wrapper");
     const slides = document.querySelectorAll(".depo-slide");
     const dotsContainer = document.querySelector(".depo-dots");
@@ -657,6 +737,24 @@
 
     updateDots();
     setInterval(autoSlide, 4500);
+
+    // Coupon copy functionality
+    const couponBtn = document.querySelector(".coupon-copy-btn");
+    const couponCode = document.querySelector("#coupon-code");
+    couponBtn.addEventListener("click", () => {
+      const code = couponCode.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = couponBtn.textContent;
+        couponBtn.textContent = "Copiado! ✓";
+        couponBtn.classList.add("copied");
+        setTimeout(() => {
+          couponBtn.textContent = originalText;
+          couponBtn.classList.remove("copied");
+        }, 2000);
+      }).catch(() => {
+        alert("Erro ao copiar cupom. Tente novamente.");
+      });
+    });
   </script>
 
 </body>

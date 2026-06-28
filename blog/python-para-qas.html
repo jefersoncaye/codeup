@@ -47,12 +47,11 @@
     .article ul li { margin-bottom:6px; }
     .article strong { color:var(--ink); }
     .cta-box { display:flex; gap:22px; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:22px; margin-top:40px; }
-    .cta-box img { width:150px; border-radius:8px; flex-shrink:0; }
     .cta-box-text h3 { font-size:18px; font-weight:800; color:var(--ink); margin:0 0 6px; }
     .cta-box-text p { color:var(--muted); font-size:13px; margin:0 0 14px; }
     .btn { display:inline-block; padding:11px 20px; border-radius:8px; background:var(--accent); color:#fff; font-weight:600; font-size:14px; text-decoration:none; transition:opacity .2s; }
     .btn:hover { opacity:.85; }
-    @media(max-width:600px) { .cta-box { flex-direction:column; } .cta-box img { width:100%; } }
+    @media(max-width:600px) { .cta-box { flex-direction:column; } }
     .footer { text-align:center; padding:20px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
     .footer a { color:var(--muted); text-decoration:none; }
     .footer a:hover { color:var(--ink); }
@@ -119,7 +118,6 @@
       </ul>
 
       <div class="cta-box">
-        <img src="../imagens/curso-python-qa.png" alt="Curso Python para QAs">
         <div class="cta-box-text">
           <h3>Aprenda Python do zero focado para QA</h3>
           <p>O curso ensina lógica de programação, estruturas de dados e a base para dominar qualquer framework de testes, em português.</p>
