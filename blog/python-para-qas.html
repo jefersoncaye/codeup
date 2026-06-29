@@ -121,7 +121,7 @@
         <div class="cta-box-text">
           <h3>Aprenda Python do zero focado para QA</h3>
           <p>O curso ensina lógica de programação, estruturas de dados e a base para dominar qualquer framework de testes, em português.</p>
-          <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E&couponCode=JUN2026" onclick="gtag('event','click_blog_cta',{page:'python-para-qas'})">Ver Curso no Udemy</a>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E" onclick="gtag('event','click_blog_cta',{page:'python-para-qas'})">Ver Curso no Udemy</a>
         </div>
       </div>
     </article>
@@ -130,5 +130,24 @@
   <footer class="footer">
     <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
   </footer>
+
+  <script>
+    fetch("../cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", data.codigo);
+          link.href = url.toString();
+        });
+      })
+      .catch(() => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", "JUN2026");
+          link.href = url.toString();
+        });
+      });
+  </script>
 </body>
 </html>

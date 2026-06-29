@@ -118,7 +118,7 @@
         <div class="cta-box-text">
           <h3>Automação de Testes Mobile com Maestro</h3>
           <p>Do zero ao avançado: YAML declarativo, Maestro Studio, CI/CD e projetos reais com apps Android.</p>
-          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-mobile-com-maestro/?referralCode=4BEBF0E3019A2F02B06E&couponCode=JUN2026" onclick="gtag('event','click_blog_cta',{page:'maestro'})">Ver Curso no Udemy</a>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-mobile-com-maestro/?referralCode=4BEBF0E3019A2F02B06E" onclick="gtag('event','click_blog_cta',{page:'maestro'})">Ver Curso no Udemy</a>
         </div>
       </div>
     </article>
@@ -127,5 +127,24 @@
   <footer class="footer">
     <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
   </footer>
+
+  <script>
+    fetch("../cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", data.codigo);
+          link.href = url.toString();
+        });
+      })
+      .catch(() => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", "JUN2026");
+          link.href = url.toString();
+        });
+      });
+  </script>
 </body>
 </html>

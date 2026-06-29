@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Postman para testes de API: guia completo | CodeUp</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d6a4f'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
+  <meta name="description" content="Guia completo do Postman: o que é, por que testar APIs, Collections, variáveis, autenticação, automação com pm.test e integração em pipelines CI/CD.">
+  <meta name="keywords" content="Postman, testes de API, automação API, REST API, Postman Collections, pm.test, variáveis Postman, autenticação API">
+  <meta name="author" content="CodeUp">
+  <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/postman.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/postman.html">
+  <meta property="og:title" content="Postman para testes de API: guia completo | CodeUp">
+  <meta property="og:description" content="Postman é a ferramenta mais usada para testar APIs. Saiba como usar Collections, variáveis, autenticação, automação com pm.test e integração CI/CD.">
+  <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-postman.png">
+  <meta property="og:locale" content="pt_BR">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Postman para testes de API: guia completo","url":"https://jefersoncaye.github.io/codeup/blog/postman.html","inLanguage":"pt-BR","author":{"@type":"Person","name":"Jeferson Caye"},"publisher":{"@type":"Organization","name":"CodeUp"}}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TBV8MW7SG6');</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#f7f5f0; --bg2:#efece4; --ink:#1a1714; --muted:#7a7469; --accent:#2d6a4f; --accent2:#52b788; --line:#ddd9d0; }
+    body { font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--ink); line-height:1.6; padding-top:64px; }
+    .navbar { position:fixed; top:0; left:0; right:0; height:64px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); border-bottom:1px solid var(--line); padding:0 40px; z-index:1000; }
+    .navbar strong a { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:var(--ink); text-decoration:none; }
+    .navbar .nav-links { display:flex; gap:28px; }
+    .navbar a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s; }
+    .navbar a:hover { color:var(--ink); }
+    .navbar a.active { color:var(--accent); }
+    @media(max-width:600px) { .navbar { padding:0 20px; } .navbar .nav-links { gap:14px; } .navbar a { font-size:13px; } }
+    .wrap { max-width:1100px; margin:0 auto; padding:32px 40px 64px; }
+    @media(max-width:600px) { .wrap { padding:24px 20px 48px; } }
+    .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:28px; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb span { margin:0 6px; opacity:.5; }
+    .article { max-width:760px; }
+    .article-tag { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; background:rgba(45,106,79,.1); color:var(--accent); padding:3px 9px; border-radius:4px; margin-bottom:14px; }
+    .article h1 { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-1.5px; line-height:1.2; margin-bottom:8px; }
+    .article-meta { color:var(--muted); font-size:13px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:32px; }
+    .article h2 { font-size:20px; font-weight:800; color:var(--accent); margin:36px 0 10px; }
+    .article p { color:var(--muted); margin:0 0 14px; }
+    .article ul { color:var(--muted); padding-left:20px; margin:0 0 14px; }
+    .article ul li { margin-bottom:6px; }
+    .article strong { color:var(--ink); }
+    .cta-box { display:flex; gap:22px; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:22px; margin-top:40px; }
+    .cta-box-text h3 { font-size:18px; font-weight:800; color:var(--ink); margin:0 0 6px; }
+    .cta-box-text p { color:var(--muted); font-size:13px; margin:0 0 14px; }
+    .btn { display:inline-block; padding:11px 20px; border-radius:8px; background:var(--accent); color:#fff; font-weight:600; font-size:14px; text-decoration:none; transition:opacity .2s; }
+    .btn:hover { opacity:.85; }
+    @media(max-width:600px) { .cta-box { flex-direction:column; } }
+    .footer { text-align:center; padding:20px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
+    .footer a { color:var(--muted); text-decoration:none; }
+    .footer a:hover { color:var(--ink); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <strong><a href="../index.html">CodeUp</a></strong>
+    <div class="nav-links">
+      <a href="../index.html#cursos">Cursos</a>
+      <a href="../index.html#consultorias">Consultorias</a>
+      <a href="../index.html#sobre">Sobre</a>
+      <a href="index.html" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <nav class="breadcrumb">
+      <a href="../index.html">CodeUp</a><span>›</span>
+      <a href="index.html">Blog</a><span>›</span>
+      Postman
+    </nav>
+
+    <article class="article">
+      <span class="article-tag">API Testing</span>
+      <h1>Postman para testes de API: o guia completo</h1>
+      <div class="article-meta">Por Jeferson Caye · CodeUp</div>
+
+      <h2>O que é o Postman?</h2>
+      <p>O <strong>Postman</strong> é a ferramenta mais popular do mundo para testar, documentar e gerenciar APIs REST. Criado em 2012 pela empresa Postman, Inc., começou como uma extensão do Chrome simples para fazer requisições HTTP e evoluiu para uma plataforma completa com suporte a testes automatizados, variáveis, ambientes, integração com CI/CD e colaboração em equipes.</p>
+      <p>Se você trabalha com APIs, Postman é praticamente obrigatório. A maioria dos profissionais QA que testam APIs usa Postman ou conhece bem a ferramenta.</p>
+
+      <h2>Por que testar APIs com Postman?</h2>
+      <p>APIs são o coração das aplicações modernas. Toda interação entre frontend e backend passa por uma API. Testar APIs é critical porque:</p>
+      <ul>
+        <li><strong>Bugs em API afetam todo o sistema:</strong> um erro na API pode quebrar web, mobile e integrações.</li>
+        <li><strong>Testes de API são rápidos:</strong> muito mais rápido que testes de UI.</li>
+        <li><strong>Fácil de automatizar:</strong> as respostas são estruturadas (JSON/XML), facilitam validações automáticas.</li>
+        <li><strong>Pode testar antes da UI estar pronta:</strong> backend sai pronto, você já testa enquanto o frontend está em desenvolvimento.</li>
+        <li><strong>Detecta problemas cedo:</strong> integrar testes de API no CI/CD garante que bugs não chegam ao cliente.</li>
+      </ul>
+
+      <h2>Principais recursos do Postman</h2>
+      <ul>
+        <li><strong>Collections:</strong> agrupe requisições em pastas organizadas e reutilize fluxos.</li>
+        <li><strong>Variáveis:</strong> defina valores dinâmicos que mudam entre ambientes (dev, staging, produção).</li>
+        <li><strong>Environments:</strong> configure diferentes URLs, tokens e dados por ambiente.</li>
+        <li><strong>Pre-request Scripts:</strong> execute JavaScript antes de cada requisição (gerar tokens, dados dinâmicos).</li>
+        <li><strong>Tests (pm.test):</strong> escreva testes automatizados que validam responses.</li>
+        <li><strong>Authentication:</strong> suporte para Basic, Bearer, OAuth 2.0, API Key e outras formas de autenticação.</li>
+        <li><strong>Collection Runner:</strong> execute todas as requisições de uma coleção em sequência.</li>
+        <li><strong>Documentação automática:</strong> gere documentação de API diretamente da coleção.</li>
+        <li><strong>Colaboração em time:</strong> compartilhe collections, work spaces e comente junto com colegas.</li>
+      </ul>
+
+      <h2>Como funciona o fluxo de teste no Postman?</h2>
+      <p>Um teste típico segue este fluxo:</p>
+      <p><strong>1. Organizar com Collections:</strong> Agrupar requisições por contexto (usuários, produtos, pedidos).</p>
+      <p><strong>2. Configurar variáveis:</strong> Base URL, tokens, IDs dinâmicos em variáveis para reusar.</p>
+      <p><strong>3. Fazer requisições:</strong> GET, POST, PUT, DELETE com headers, body e parâmetros.</p>
+      <p><strong>4. Validar com tests:</strong> Verificar status code, campo no response, estrutura de dados, tempo de resposta.</p>
+      <p><strong>5. Automatizar fluxos:</strong> Extrair dados de uma requisição (um ID retornado) e usar na próxima requisição.</p>
+      <p><strong>6. Executar em sequência:</strong> Use o Collection Runner para rodar todos os testes de uma coleção.</p>
+
+      <h2>O que você aprende no curso Postman do Zero?</h2>
+      <p>O curso cobre tudo que você precisa para dominar Postman, desde o básico até projetos reais:</p>
+      <ul>
+        <li>Como instalar e primeiras requisições GET/POST.</li>
+        <li>Entender APIs e o protocolo HTTP.</li>
+        <li>Organizar testes em Collections.</li>
+        <li>Variáveis e Environments para reutilizar dados.</li>
+        <li>Autenticação com token.</li>
+        <li>Automação com pm.test para validar responses.</li>
+        <li>Collection Runner para executar fluxos inteiros.</li>
+        <li>Mini-projeto prático: testar uma API de e-commerce ponta a ponta (usuários, login, produtos, carrinho).</li>
+      </ul>
+
+      <h2>Por quem o Postman é mantido?</h2>
+      <p>O Postman é desenvolvido pela empresa <strong>Postman, Inc.</strong>, fundada em 2014 por Abhinav Asthana. A empresa tem milhões de usuários ativos no mundo, oferece versão gratuita e planos pagos para times. O Postman tem um time dedicado que lança novas funcionalidades regularmente e comunidade muito ativa.</p>
+
+      <h2>Para quem o Postman é ideal?</h2>
+      <ul>
+        <li>QAs que testam APIs REST.</li>
+        <li>Devs backend que precisam testar suas próprias APIs.</li>
+        <li>Times que querem testes de API automatizados na pipeline.</li>
+        <li>Profissionais que buscam melhorar qualidade de APIs.</li>
+        <li>Qualquer pessoa que trabalha com APIs e quer ir além de cURL ou Insomnia.</li>
+      </ul>
+
+      <div class="cta-box">
+        <div class="cta-box-text">
+          <h3>Postman do Zero: Teste de APIs na Prática</h3>
+          <p>Do básico ao avançado: Collections, variáveis, autenticação, automação com pm.test e projetos reais.</p>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/postman-do-zero-teste-de-apis-na-pratica/?referralCode=1108FC246415583140C9" onclick="gtag('event','click_blog_cta',{page:'postman'})">Ver Curso no Udemy</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
+  </footer>
+
+  <script>
+    fetch("../cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", data.codigo);
+          link.href = url.toString();
+        });
+      })
+      .catch(() => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", "JUN2026");
+          link.href = url.toString();
+        });
+      });
+  </script>
+</body>
+</html>

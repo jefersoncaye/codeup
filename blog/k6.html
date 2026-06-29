@@ -123,7 +123,7 @@
         <div class="cta-box-text">
           <h3>Testes de Performance com k6</h3>
           <p>Aprenda a criar testes de carga, stress e spike com k6, integrar ao CI/CD e visualizar métricas no Grafana.</p>
-          <a class="btn" target="_blank" href="https://www.udemy.com/course/testes-de-performance-com-k6/?referralCode=EFB4E0E8095E1A7CF1B8&couponCode=JUN2026" onclick="gtag('event','click_blog_cta',{page:'k6'})">Ver Curso no Udemy</a>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/testes-de-performance-com-k6/?referralCode=EFB4E0E8095E1A7CF1B8" onclick="gtag('event','click_blog_cta',{page:'k6'})">Ver Curso no Udemy</a>
         </div>
       </div>
     </article>
@@ -132,5 +132,24 @@
   <footer class="footer">
     <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
   </footer>
+
+  <script>
+    fetch("../cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", data.codigo);
+          link.href = url.toString();
+        });
+      })
+      .catch(() => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", "JUN2026");
+          link.href = url.toString();
+        });
+      });
+  </script>
 </body>
 </html>
