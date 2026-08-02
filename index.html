@@ -75,7 +75,7 @@
           "description": "Aprenda automação profissional com VBScript, objetos avançados e integração com Jenkins.",
           "url": "https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/",
           "inLanguage": "pt-BR",
-          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "bestRating": "5" },
+          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "bestRating": "5" },
           "provider": { "@type": "Organization", "name": "Udemy", "sameAs": "https://www.udemy.com" }
         }
       },
@@ -87,7 +87,7 @@
           "description": "Aprenda carga, estresse, smoke, browser testing, dashboards e execução no Grafana Cloud.",
           "url": "https://www.udemy.com/course/domine-testes-de-performance-com-k6/",
           "inLanguage": "pt-BR",
-          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5" },
+          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "bestRating": "5" },
           "provider": { "@type": "Organization", "name": "Udemy", "sameAs": "https://www.udemy.com" }
         }
       },
@@ -99,6 +99,7 @@
           "description": "Automatize testes mobile Android com Maestro: YAML, Maestro Studio, suite E2E real com ShopDemo, GitHub Actions e IA gerando cenários em português.",
           "url": "https://www.udemy.com/course/maestro-testes-mobile-do-zero-ao-pipeline/",
           "inLanguage": "pt-BR",
+          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5" },
           "provider": { "@type": "Organization", "name": "Udemy", "sameAs": "https://www.udemy.com" }
         }
       },
@@ -261,8 +262,26 @@
     .card-body { padding: 16px 18px 20px; flex: 1; display: flex; flex-direction: column; }
     .curso-card h2 { font-size: 15px; font-weight: 700; color: var(--ink); margin: 0 0 6px; line-height: 1.4; }
     .curso-card p { font-size: 13px; color: var(--muted); flex: 1; margin: 0 0 12px; }
-    .card-rating { font-size: 12px; color: #b45309; font-weight: 600; margin-bottom: 12px; }
-    .card-rating span { color: var(--muted); margin-left: 3px; }
+    .card-rating { font-size: 12px; font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
+    .card-rating .stars { color: #FDB913; }
+    .card-rating .empty { color: #ddd; }
+    .half-star {
+      display: inline-block;
+      position: relative;
+      color: #ddd;
+      width: 0.9em;
+      line-height: 1;
+    }
+    .half-star::before {
+      content: '★';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0.45em;
+      overflow: hidden;
+      color: #FDB913;
+    }
+    .card-rating span:last-child { color: var(--muted); margin-left: 3px; }
 
     .badge-novo {
       position: absolute; top: 10px; right: 10px;
@@ -502,11 +521,11 @@
     <div class="social-proof">
       <span>7 cursos</span>
       <span class="sp-dot">·</span>
-      <span>2.800+ alunos</span>
+      <span>3.025+ alunos</span>
       <span class="sp-dot">·</span>
       <span><span class="sp-star">★</span> 4.8 média</span>
       <span class="sp-dot">·</span>
-      <span>160+ avaliações</span>
+      <span>199+ avaliações</span>
     </div>
   </section>
 
@@ -520,7 +539,7 @@
           <div class="card-body">
             <h2>Python para QAs</h2>
             <p>Aprenda Python do zero focado para qualidade de software: lógica de programação, estruturas de dados e a base sólida para dominar qualquer framework de testes.</p>
-            <div class="card-rating">★★★★★ <span>5.0</span></div>
+            <div class="card-rating"><span class="stars">★★★★★</span> <span>5.0</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/python-para-qas-p/?referralCode=279CBA619020C0BE674E" onclick="gtag('event','click_curso',{curso:'Python para QAs'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/python-para-qas.html">Saiba mais</a>
           </div>
@@ -531,7 +550,7 @@
           <div class="card-body">
             <h2>Automação Web com Playwright, Python e Pytest</h2>
             <p>Aprenda do zero até o avançado com POM, fixtures, boas práticas, CI/CD e muitos exercícios práticos.</p>
-            <div class="card-rating">★★★★★ <span>4.8</span></div>
+            <div class="card-rating"><span class="stars">★★★★</span><span class="half-star">☆</span> <span>4.8</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-com-playwright-python-e-pytest/?referralCode=AD1F270DC4F763ED7E12" onclick="gtag('event','click_curso',{curso:'Playwright Web'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/playwright-python.html">Saiba mais</a>
           </div>
@@ -542,7 +561,7 @@
           <div class="card-body">
             <h2>Automação de Testes de API com Playwright</h2>
             <p>Domine testes de API com Python, validação avançada de JSON, execução paralela e testes de carga.</p>
-            <div class="card-rating">★★★★☆ <span>4.7</span></div>
+            <div class="card-rating"><span class="stars">★★★★</span><span class="half-star">☆</span> <span>4.7</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-de-api-com-playwright-e-python/?referralCode=6C535A6CFADC90F9B185" onclick="gtag('event','click_curso',{curso:'Playwright API'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/playwright-python.html">Saiba mais</a>
           </div>
@@ -553,7 +572,7 @@
           <div class="card-body">
             <h2>Automação Desktop/Web com TestComplete</h2>
             <p>Aprenda automação profissional com VBScript, objetos avançados e integração com Jenkins.</p>
-            <div class="card-rating">★★★★★ <span>5.0</span></div>
+            <div class="card-rating"><span class="stars">★★★★</span><span class="half-star">☆</span> <span>4.8</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/automacao-de-testes-desktop-e-web-com-testcomplete/?referralCode=350B27A48FC3582E87C1" onclick="gtag('event','click_curso',{curso:'TestComplete'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/testcomplete.html">Saiba mais</a>
           </div>
@@ -564,7 +583,7 @@
           <div class="card-body">
             <h2>Testes de Performance com k6</h2>
             <p>Aprenda carga, estresse, smoke, browser testing, dashboards e execução no Grafana Cloud.</p>
-            <div class="card-rating">★★★★★ <span>4.9</span></div>
+            <div class="card-rating"><span class="stars">★★★★</span><span class="half-star">☆</span> <span>4.8</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/domine-testes-de-performance-com-k6/?referralCode=92EA17EA768BDC8524E9" onclick="gtag('event','click_curso',{curso:'k6'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/k6.html">Saiba mais</a>
           </div>
@@ -576,6 +595,7 @@
           <div class="card-body">
             <h2>Maestro: Testes Mobile do Zero ao Pipeline</h2>
             <p>Automatize testes mobile Android com Maestro: YAML, Maestro Studio, suite E2E real com ShopDemo, GitHub Actions e IA gerando cenários em português.</p>
+            <div class="card-rating"><span class="stars">★★★★</span><span class="half-star">☆</span> <span>4.9</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/maestro-testes-mobile-do-zero-ao-pipeline/?referralCode=2E88CCA77E66DFD8ED4F" onclick="gtag('event','click_curso',{curso:'Maestro Mobile'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/maestro.html">Saiba mais</a>
           </div>
@@ -587,6 +607,7 @@
           <div class="card-body">
             <h2>Postman do Zero: Teste de APIs na Prática</h2>
             <p>Domine testes de API com Postman: collections, variáveis, autenticação, automação com pm.test e projetos reais do zero ao pipeline.</p>
+            <div class="card-rating"><span class="stars">★★★★★</span> <span>5.0</span></div>
             <a class="btn" target="_blank" href="https://www.udemy.com/course/postman-do-zero-teste-de-apis-na-pratica/?referralCode=1108FC246415583140C9" onclick="gtag('event','click_curso',{curso:'Postman APIs'})">Acessar Curso</a>
             <a class="btn-secondary" href="blog/postman.html">Saiba mais</a>
           </div>
@@ -648,10 +669,10 @@
       <h2>Quem Sou Eu</h2>
       <p>Sou QA Engineer com experiência real em automação de testes usando Playwright, Python, TestComplete, k6 e CI/CD. Trabalho com projetos reais no dia a dia e criei estes cursos para ensinar o que realmente importa: sem enrolação, com projetos práticos e as ferramentas que o mercado exige.</p>
       <div class="sobre-stats">
-        <div><strong>2.800+</strong><span>alunos</span></div>
+        <div><strong>3.025+</strong><span>alunos</span></div>
         <div><strong>★ 4.8</strong><span>avaliação</span></div>
         <div><strong>7</strong><span>cursos</span></div>
-        <div><strong>160+</strong><span>avaliações</span></div>
+        <div><strong>199+</strong><span>avaliações</span></div>
       </div>
     </section>
 
