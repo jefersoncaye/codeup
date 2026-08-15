@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playwright + Axe-core: automação de testes de acessibilidade | CodeUp</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d6a4f'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
+  <meta name="description" content="Guia completo de testes de acessibilidade com Playwright e axe-core: automação WCAG, relatórios estruturados, integração com CI/CD e projetos reais de e-commerce.">
+  <meta name="keywords" content="playwright acessibilidade, axe-core automação, testes WCAG, automação testes acessibilidade, pytest acessibilidade, github actions acessibilidade">
+  <meta name="author" content="CodeUp">
+  <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/playwright-axe-core.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/playwright-axe-core.html">
+  <meta property="og:title" content="Playwright + Axe-core: automação de testes de acessibilidade | CodeUp">
+  <meta property="og:description" content="Guia completo de testes de acessibilidade com Playwright e axe-core cobrindo automação WCAG, execução de regras customizadas e integração com pipelines.">
+  <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-playwright-axe-core.png">
+  <meta property="og:locale" content="pt_BR">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Playwright + Axe-core: automação de testes de acessibilidade","url":"https://jefersoncaye.github.io/codeup/blog/playwright-axe-core.html","inLanguage":"pt-BR","author":{"@type":"Person","name":"Jeferson Caye"},"publisher":{"@type":"Organization","name":"CodeUp"}}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TBV8MW7SG6');</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#f7f5f0; --bg2:#efece4; --ink:#1a1714; --muted:#7a7469; --accent:#2d6a4f; --accent2:#52b788; --line:#ddd9d0; }
+    body { font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--ink); line-height:1.6; padding-top:64px; }
+    .navbar { position:fixed; top:0; left:0; right:0; height:64px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); border-bottom:1px solid var(--line); padding:0 40px; z-index:1000; }
+    .navbar strong a { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:var(--ink); text-decoration:none; }
+    .navbar .nav-links { display:flex; gap:28px; }
+    .navbar a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s; }
+    .navbar a:hover { color:var(--ink); }
+    .navbar a.active { color:var(--accent); }
+    @media(max-width:600px) { .navbar { padding:0 20px; } .navbar .nav-links { gap:14px; } .navbar a { font-size:13px; } }
+    .wrap { max-width:1100px; margin:0 auto; padding:32px 40px 64px; }
+    @media(max-width:600px) { .wrap { padding:24px 20px 48px; } }
+    .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:28px; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb span { margin:0 6px; opacity:.5; }
+    .article { max-width:760px; }
+    .article-tag { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; background:rgba(45,106,79,.1); color:var(--accent); padding:3px 9px; border-radius:4px; margin-bottom:14px; }
+    .article h1 { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-1.5px; line-height:1.2; margin-bottom:8px; }
+    .article-meta { color:var(--muted); font-size:13px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:32px; }
+    .article h2 { font-size:20px; font-weight:800; color:var(--accent); margin:36px 0 10px; }
+    .article h3 { font-size:17px; font-weight:700; color:var(--ink); margin:24px 0 8px; }
+    .article p { color:var(--muted); margin:0 0 14px; }
+    .article ul { color:var(--muted); padding-left:20px; margin:0 0 14px; }
+    .article ul li { margin-bottom:6px; }
+    .article strong { color:var(--ink); }
+    .section-divider { border:none; border-top:1px solid var(--line); margin:44px 0; }
+    .cta-box { display:flex; gap:22px; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:22px; margin-top:24px; }
+    .cta-box-text h3 { font-size:18px; font-weight:800; color:var(--ink); margin:0 0 6px; }
+    .cta-box-text p { color:var(--muted); font-size:13px; margin:0 0 14px; }
+    .btn { display:inline-block; padding:11px 20px; border-radius:8px; background:var(--accent); color:#fff; font-weight:600; font-size:14px; text-decoration:none; transition:opacity .2s; }
+    .btn:hover { opacity:.85; }
+    @media(max-width:600px) { .cta-box { flex-direction:column; } }
+    .footer { text-align:center; padding:20px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
+    .footer a { color:var(--muted); text-decoration:none; }
+    .footer a:hover { color:var(--ink); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <strong><a href="../index.html">CodeUp</a></strong>
+    <div class="nav-links">
+      <a href="../index.html#cursos">Cursos</a>
+      <a href="../index.html#consultorias">Consultorias</a>
+      <a href="../index.html#sobre">Sobre</a>
+      <a href="index.html" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <nav class="breadcrumb">
+      <a href="../index.html">CodeUp</a><span>›</span>
+      <a href="index.html">Blog</a><span>›</span>
+      Playwright + Axe-core
+    </nav>
+
+    <article class="article">
+      <span class="article-tag">Acessibilidade &amp; Automação</span>
+      <h1>Playwright + Axe-core: automação de testes de acessibilidade</h1>
+      <div class="article-meta">Por Jeferson Caye · CodeUp</div>
+
+      <h2>O que é acessibilidade digital?</h2>
+      <p>Acessibilidade digital é o direito de qualquer pessoa usar uma aplicação web ou mobile, independentemente de ter deficiências visuais, auditivas, motoras ou cognitivas. Não é um extra ou um "nice to have" — é um requisito legal em muitos países e uma responsabilidade ética de quem constrói software.</p>
+      <p>As <strong>diretrizes WCAG 2.1</strong> (Web Content Accessibility Guidelines) definem padrões internacionais de acessibilidade. Mas implementar tudo isso manualmente durante desenvolvimento é difícil e propenso a erros. É aí que entra a <strong>automação com axe-core</strong>.</p>
+
+      <h2>O que é axe-core?</h2>
+      <p>O <strong>axe-core</strong> é um motor de testes de acessibilidade open-source mantido pela <strong>Deque Systems</strong>. Ele analisa automaticamente uma página web ou componente e identifica violações de WCAG, gerando um relatório estruturado em JSON com o tipo de problema, severidade e instruções para corrigir.</p>
+      <p>O grande diferencial: você integra axe-core direto no seu framework de testes (Playwright, Cypress, Selenium) e roda a cada build, travando o pipeline se encontrar problemas críticos.</p>
+
+      <h2>Por que automatizar testes de acessibilidade?</h2>
+      <ul>
+        <li><strong>Detecção precoce:</strong> identificar problemas de acessibilidade durante o desenvolvimento é muito mais barato do que após o deploy.</li>
+        <li><strong>Conformidade legal:</strong> muitos países têm leis obrigando acessibilidade (Lei de Acessibilidade na Web no Brasil, ADA nos EUA, EAA na Europa).</li>
+        <li><strong>Melhor experiência para todos:</strong> usuários com e sem deficiências se beneficiam de uma interface acessível.</li>
+        <li><strong>Alcance maior:</strong> seu produto fica disponível para mais pessoas, aumentando sua audiência.</li>
+        <li><strong>SEO melhorado:</strong> boas práticas de acessibilidade (semântica HTML, contraste, etc) também melhoram SEO.</li>
+      </ul>
+
+      <h2>Testes de acessibilidade com Playwright e axe-core</h2>
+      <p>Ao integrar axe-core com Playwright, você consegue automatizar testes de acessibilidade usando a mesma ferramenta que já usa para testes funcionais. Uma única suite cobre UI, API e acessibilidade.</p>
+
+      <h3>Principais benefícios dessa combinação</h3>
+      <ul>
+        <li><strong>Execução em contexto real:</strong> testa a página exatamente como aparece no browser, com JavaScript renderizado e estados da aplicação reais.</li>
+        <li><strong>Seleção inteligente:</strong> roda axe apenas em componentes específicos, páginas inteiras ou com regras customizadas (WCAG, Seção 508, etc).</li>
+        <li><strong>Relatórios estruturados:</strong> recebe JSON com violações categorizadas por severidade (critical, serious, moderate, minor).</li>
+        <li><strong>Integração com CI/CD:</strong> gera artefatos do pipeline, publica relatórios HTML e trava builds automáticamente.</li>
+        <li><strong>Fixtures reutilizáveis:</strong> compartilha fixtures do Pytest com fixtures de acessibilidade, login persistido, dados de teste, etc.</li>
+        <li><strong>Helpers de assertion:</strong> cria assertions customizadas que verificam severidade de violações específicas.</li>
+      </ul>
+
+      <h3>Casos de uso no mundo real</h3>
+      <ul>
+        <li>Testar checkout de e-commerce: verifique se contraste, ordem de headings, labels e buttons estão acessíveis.</li>
+        <li>Validar leitores de tela: simule navegação via teclado e NVDA em fluxos críticos.</li>
+        <li>Scanear componentes isolados: teste um modal, form ou dropdown em acessibilidade antes de usar em qualquer página.</li>
+        <li>Gerar gates de acessibilidade: trave a publicação de uma feature se aparecer violação crítica.</li>
+      </ul>
+
+      <div class="cta-box">
+        <div class="cta-box-text">
+          <h3>Playwright + Axe-core: Testes de Acessibilidade</h3>
+          <p>Acesso grátis: configure axe-core, execute contra projetos reais de e-commerce, leia relatórios e integre com GitHub Actions.</p>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/playwright-axe-core-testes-de-acessibilidade/?referralCode=CB5414F01818E696205B" onclick="gtag('event','click_blog_cta',{page:'playwright-axe-core'})">Acessar Curso Grátis</a>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <h2>O que você vai aprender</h2>
+      <p>Este curso combina prática e teoria, começando do zero e evoluindo até pipelines profissionais:</p>
+
+      <h3>Fundamentos (Seções 1-3)</h3>
+      <ul>
+        <li>Entender WCAG, os limites da automação e quando usar axe-core.</li>
+        <li>Ler e interpretar relatórios JSON do axe-core.</li>
+        <li>Configurar axe-core com Playwright e Pytest, organizando com fixtures de login, helpers de assertion e Page Object Model.</li>
+      </ul>
+
+      <h3>Execução avançada (Seções 4-5)</h3>
+      <ul>
+        <li>Rodar axe de formas diferentes: página inteira, componente isolado, regras específicas incluídas ou excluídas.</li>
+        <li>Identificar bugs reais em contraste, ordem de headings, landmarks duplicados, links só por cor e botões sem nome.</li>
+      </ul>
+
+      <h3>Testes que a automação não enxerga (Seção 6)</h3>
+      <ul>
+        <li>Navegar uma aplicação usando apenas teclado.</li>
+        <li>Testar com leitores de tela reais (NVDA) incluindo foco perdido após ações.</li>
+      </ul>
+
+      <h3>Pipeline e CI/CD (Seção 7)</h3>
+      <ul>
+        <li>Publicar um gate de acessibilidade no GitHub Actions que trava o build em violações críticas.</li>
+        <li>Arquivar relatórios estruturados como artefatos do pipeline.</li>
+      </ul>
+
+      <h2>Para quem é este curso?</h2>
+      <ul>
+        <li>QAs que usam Playwright e querem adicionar acessibilidade à sua estratégia de testes.</li>
+        <li>Desenvolvedores que precisam garantir que suas features sejam acessíveis desde o início.</li>
+        <li>Times que têm requisitos legais de conformidade WCAG.</li>
+        <li>Profissionais que querem se especializar em um tópico cada vez mais demandado no mercado.</li>
+      </ul>
+
+      <p style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px;">
+        Este curso é <strong>completamente grátis</strong> na Udemy. Sem pegadinhas, sem cupons ocultos. O objetivo é trazer mais profissionais para a comunidade de automação de testes e mostrar que acessibilidade não é complicada — é só questão de conhecer as ferramentas certas.
+      </p>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
+  </footer>
+
+  <script>
+    fetch("../cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", data.codigo);
+          link.href = url.toString();
+        });
+      })
+      .catch(() => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", "JUN2026");
+          link.href = url.toString();
+        });
+      });
+  </script>
+</body>
+</html>
