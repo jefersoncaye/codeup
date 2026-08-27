@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bruno: testes de API versionados no Git (alternativa ao Postman) | CodeUp</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232d6a4f'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='system-ui,Arial' font-weight='900' font-size='20' fill='white'>C</text></svg>">
+  <meta name="description" content="Guia completo do Bruno: o cliente de API open source que versiona requisições como arquivos de texto no Git. Collections, Secrets, Bruno CLI e pipeline CI/CD.">
+  <meta name="keywords" content="Bruno API, alternativa ao Postman, testes de API, Bruno CLI, API client Git, versionar collection, testes de API em pipeline, ServeRest">
+  <meta name="author" content="CodeUp">
+  <link rel="canonical" href="https://jefersoncaye.github.io/codeup/blog/bruno.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://jefersoncaye.github.io/codeup/blog/bruno.html">
+  <meta property="og:title" content="Bruno: testes de API versionados no Git (alternativa ao Postman) | CodeUp">
+  <meta property="og:description" content="Conheça o Bruno, cliente de API open source cujas requisições vivem como arquivos de texto no seu repositório: diff, Pull Request, CLI e pipeline sem depender de nuvem.">
+  <meta property="og:image" content="https://jefersoncaye.github.io/codeup/imagens/curso-bruno.png">
+  <meta property="og:locale" content="pt_BR">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Bruno: testes de API versionados no Git (alternativa ao Postman)","url":"https://jefersoncaye.github.io/codeup/blog/bruno.html","inLanguage":"pt-BR","author":{"@type":"Person","name":"Jeferson Caye"},"publisher":{"@type":"Organization","name":"CodeUp"}}
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBV8MW7SG6"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TBV8MW7SG6');</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#f7f5f0; --bg2:#efece4; --ink:#1a1714; --muted:#7a7469; --accent:#2d6a4f; --accent2:#52b788; --line:#ddd9d0; }
+    body { font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--ink); line-height:1.6; padding-top:64px; }
+    .navbar { position:fixed; top:0; left:0; right:0; height:64px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); border-bottom:1px solid var(--line); padding:0 40px; z-index:1000; }
+    .navbar strong a { font-size:20px; font-weight:800; letter-spacing:-0.5px; color:var(--ink); text-decoration:none; }
+    .navbar .nav-links { display:flex; gap:28px; }
+    .navbar a { color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s; }
+    .navbar a:hover { color:var(--ink); }
+    .navbar a.active { color:var(--accent); }
+    @media(max-width:600px) { .navbar { padding:0 20px; } .navbar .nav-links { gap:14px; } .navbar a { font-size:13px; } }
+    .wrap { max-width:1100px; margin:0 auto; padding:32px 40px 64px; }
+    @media(max-width:600px) { .wrap { padding:24px 20px 48px; } }
+    .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:28px; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb span { margin:0 6px; opacity:.5; }
+    .article { max-width:760px; }
+    .article-tag { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; background:rgba(45,106,79,.1); color:var(--accent); padding:3px 9px; border-radius:4px; margin-bottom:14px; }
+    .article h1 { font-size:clamp(26px,4vw,36px); font-weight:800; letter-spacing:-1.5px; line-height:1.2; margin-bottom:8px; }
+    .article-meta { color:var(--muted); font-size:13px; padding-bottom:24px; border-bottom:1px solid var(--line); margin-bottom:32px; }
+    .article h2 { font-size:20px; font-weight:800; color:var(--accent); margin:36px 0 10px; }
+    .article h3 { font-size:17px; font-weight:700; color:var(--ink); margin:24px 0 8px; }
+    .article p { color:var(--muted); margin:0 0 14px; }
+    .article ul { color:var(--muted); padding-left:20px; margin:0 0 14px; }
+    .article ul li { margin-bottom:6px; }
+    .article strong { color:var(--ink); }
+    .section-divider { border:none; border-top:1px solid var(--line); margin:44px 0; }
+    .cta-box { display:flex; gap:22px; align-items:center; background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:22px; margin-top:24px; }
+    .cta-box-text h3 { font-size:18px; font-weight:800; color:var(--ink); margin:0 0 6px; }
+    .cta-box-text p { color:var(--muted); font-size:13px; margin:0 0 14px; }
+    .btn { display:inline-block; padding:11px 20px; border-radius:8px; background:var(--accent); color:#fff; font-weight:600; font-size:14px; text-decoration:none; transition:opacity .2s; }
+    .btn:hover { opacity:.85; }
+    @media(max-width:600px) { .cta-box { flex-direction:column; } }
+    .footer { text-align:center; padding:20px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
+    .footer a { color:var(--muted); text-decoration:none; }
+    .footer a:hover { color:var(--ink); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <strong><a href="../index.html">CodeUp</a></strong>
+    <div class="nav-links">
+      <a href="../index.html#cursos">Cursos</a>
+      <a href="../index.html#consultorias">Consultorias</a>
+      <a href="../index.html#sobre">Sobre</a>
+      <a href="index.html" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <nav class="breadcrumb">
+      <a href="../index.html">CodeUp</a><span>›</span>
+      <a href="index.html">Blog</a><span>›</span>
+      Bruno
+    </nav>
+
+    <article class="article">
+      <span class="article-tag">Teste de API</span>
+      <h1>Bruno: testes de API que moram no Git, a alternativa ao Postman</h1>
+      <div class="article-meta">Por Jeferson Caye · CodeUp</div>
+
+      <h2>O que é o Bruno?</h2>
+      <p>O <strong>Bruno</strong> é um cliente de API open source criado como alternativa direta ao Postman e ao Insomnia. A diferença central: em vez de guardar suas requisições numa nuvem proprietária, o Bruno salva cada uma como um <strong>arquivo de texto legível</strong> dentro de uma pasta comum do seu projeto — hoje no formato YAML do <strong>OpenCollection</strong>, o padrão aberto adotado pelo Bruno (o antigo formato `.bru` ainda é suportado e pode ser migrado com um clique).</p>
+      <p>Isso muda a forma como você trabalha com testes de API. Um arquivo de texto pode ser commitado, revisado num Pull Request e lido num diff linha por linha — exatamente como qualquer outro código do repositório.</p>
+
+      <h2>Por que trocar o Postman pelo Bruno?</h2>
+      <ul>
+        <li><strong>Sem conta na nuvem:</strong> nada de sincronizar workspace com servidor de terceiros para versionar uma collection.</li>
+        <li><strong>Diff de verdade:</strong> como cada requisição é um arquivo YAML, o Git mostra exatamente o que mudou numa collection, campo por campo.</li>
+        <li><strong>Review em Pull Request:</strong> uma mudança de contrato de API pode ser revisada pelo time antes do merge, do mesmo jeito que uma mudança de código.</li>
+        <li><strong>Segredos protegidos:</strong> a aba Secrets e o arquivo `.env` mantêm senha e token fora do que vai pro Git.</li>
+        <li><strong>Edição totalmente gratuita:</strong> sem paywall para funcionalidades básicas, incluindo a linha de comando.</li>
+      </ul>
+
+      <h2>Principais recursos do Bruno</h2>
+      <ul>
+        <li><strong>Collections como arquivos:</strong> cada requisição é um arquivo YAML legível (formato OpenCollection), organizável em pastas normais do sistema operacional.</li>
+        <li><strong>Environments:</strong> várias configurações de baseUrl e variáveis, com escopos e precedência entre variável global, de ambiente e de requisição.</li>
+        <li><strong>Scripts pre-request e testes:</strong> gere dados dinâmicos antes da chamada e escreva asserts declarativos ou em JavaScript puro.</li>
+        <li><strong>Encadeamento de requisições:</strong> capture um ID retornado numa resposta e reutilize na próxima chamada, montando fluxos completos.</li>
+        <li><strong>Bruno CLI:</strong> rode toda a suíte pelo terminal, com relatórios em JSON, JUnit e HTML e o exit code que a esteira de CI usa para travar o merge.</li>
+        <li><strong>Importação:</strong> traga collections existentes do Postman, do Insomnia ou de uma especificação OpenAPI.</li>
+      </ul>
+
+      <h2>Git, CLI e pipeline: onde o Bruno ganha do Postman</h2>
+      <p>É na esteira de CI/CD que a diferença fica clara. Como a collection é só um conjunto de arquivos de texto, o mesmo repositório que guarda a suíte pode subir dentro de um workflow do GitHub Actions, rodar o Bruno CLI contra a API e travar o merge automaticamente se algum contrato quebrar — sem exportar nada manualmente e sem depender de uma conta na nuvem do provedor.</p>
+
+      <div class="cta-box">
+        <div class="cta-box-text">
+          <h3>Testes de API com Bruno: a Alternativa Git ao Postman</h3>
+          <p>Monte do zero uma suíte versionada no Git, com ambientes, segredos protegidos, token automático e um pipeline que trava o merge quando a API quebra.</p>
+          <a class="btn" target="_blank" href="https://www.udemy.com/course/testes-de-api-com-bruno-a-alternativa-git-ao-postman/?referralCode=B29F1E5E0DD1D3F77A01" onclick="gtag('event','click_blog_cta',{page:'bruno'})">Ver Curso no Udemy</a>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <h2>O que você vai aprender</h2>
+      <p>É um projeto só, que cresce com você: começa numa requisição solta e termina numa suíte versionada no Git, rodando no GitHub Actions e travando o merge quando a API quebra. A API sobe na sua própria máquina com o ServeRest, que simula uma loja virtual completa.</p>
+
+      <h3>Por que Bruno, e o primeiro contato</h3>
+      <ul>
+        <li>O problema que o Bruno resolve e o que muda em relação ao Postman.</li>
+        <li>Instalando o Bruno e tour pela interface.</li>
+        <li>Subindo o ServeRest local e conhecendo a API que vai ser testada o curso inteiro.</li>
+      </ul>
+
+      <h3>Requisições e a anatomia do projeto</h3>
+      <ul>
+        <li>Criando a collection e a primeira request.</li>
+        <li>POST, PUT e DELETE: o CRUD completo de usuários.</li>
+        <li>Lendo a resposta, a timeline e organizando tudo em pastas.</li>
+      </ul>
+
+      <h3>Ambientes, variáveis e segredos</h3>
+      <ul>
+        <li>Environments e baseUrl para alternar entre configurações.</li>
+        <li>Escopos de variável e precedência entre eles.</li>
+        <li>Segredos sem vazar no Git e login com token automático.</li>
+      </ul>
+
+      <h3>Testes</h3>
+      <ul>
+        <li>Seu primeiro teste: assert declarativo versus teste em JavaScript.</li>
+        <li>Dados dinâmicos em pre-request e encadeamento de requisições pelo ID retornado.</li>
+      </ul>
+
+      <h3>Git e CLI: onde o Bruno ganha</h3>
+      <ul>
+        <li>Commitando a collection e lendo o diff de uma mudança de API.</li>
+        <li>Review de API em Pull Request.</li>
+        <li>Bruno CLI rodando a suíte no terminal, com relatórios e flags que importam.</li>
+        <li>Montando o pipeline no GitHub Actions.</li>
+      </ul>
+
+      <h3>Projeto final e levando pro trabalho</h3>
+      <ul>
+        <li>Projeto de ponta a ponta: cadastro, produto, carrinho, conclusão de compra, cancelamento e limpeza dos dados.</li>
+        <li>Migrando a collection do seu time para o Bruno.</li>
+      </ul>
+
+      <h2>Para quem é este curso?</h2>
+      <ul>
+        <li>QAs e desenvolvedores que já mandaram uma requisição em alguma ferramenta e querem colocar teste de API no repositório e no pipeline.</li>
+        <li>Times que sofrem com collection perdida, sem histórico e sem review de mudança de contrato.</li>
+        <li>Quem já usa Postman ou Insomnia e quer migrar sem perder produtividade.</li>
+        <li>Iniciantes em teste de API: nenhuma experiência prévia com programação é necessária.</li>
+      </ul>
+
+      <p style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px;">
+        Ao final, você não vai ter só aprendido mais uma ferramenta. Você vai ter uma suíte de testes de API versionada no Git, com ambientes, segredos protegidos, token automático e um pipeline que barra o merge quando a API quebra — pronta para levar para o seu trabalho.
+      </p>
+    </article>
+  </div>
+
+  <footer class="footer">
+    <a href="../index.html">Voltar ao inicio</a> · <a href="index.html">Blog</a>
+  </footer>
+
+  <script>
+    fetch("../cupom.json")
+      .then(res => res.json())
+      .then(data => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", data.codigo);
+          link.href = url.toString();
+        });
+      })
+      .catch(() => {
+        document.querySelectorAll("a[href*='udemy.com']").forEach(link => {
+          const url = new URL(link.href);
+          url.searchParams.set("couponCode", "JUN2026");
+          link.href = url.toString();
+        });
+      });
+  </script>
+</body>
+</html>
